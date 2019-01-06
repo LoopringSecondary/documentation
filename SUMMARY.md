@@ -14,10 +14,10 @@
 
 * [About](relayer/about.md)
 * [Standard API](relayer/apis.md)
+* [Lightcone Relayer](relayer/lightcone-relayer.md)
 * [Lightcone.js](relayer/lightcone.js.md)
 * [Lightcone.py](relayer/lightcone.py.md)
 * [Lightcone.jar](relayer/lightcone.jar.md)
-* [Lightcone Relayer](relayer/lightcone-relayer.md)
 
 ## Resources
 
