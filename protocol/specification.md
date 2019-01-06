@@ -1,4 +1,4 @@
-# Protocol Specification
+# Specification
 
 ## Getting Super Powers
 

@@ -1,4 +1,4 @@
-# About Loopring 2.0
+# Introduction
 
 ## About
 

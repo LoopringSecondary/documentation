@@ -1,17 +1,25 @@
 # Table of contents
 
-* [About Loopring 2.0](README.md)
-* [Resources](resources.md)
-* [Protocol Specification](specification.md)
-* [Protocol Smart Contracts](loopring-2.0-smart-contracts.md)
-* [Loopring.js](loopring.js.md)
-* [Startand Relayer API](startand-relayer-api.md)
+* [Introduction](README.md)
 
-## Lightcone Relayer
+## Protocol
 
-* [About](lightcone-relayer/about.md)
-* [API](lightcone-relayer/apis.md)
-* [Lightcone.js](lightcone-relayer/lightcone.js.md)
-* [Lightcone.py](lightcone-relayer/lightcone.py.md)
-* [Lightcone.jar](lightcone-relayer/lightcone.jar.md)
+* [About Loopring 2.0](protocol/untitled-1.md)
+* [Specification](protocol/specification.md)
+* [Protocol Smart Contracts](protocol/loopring-2.0-smart-contracts.md)
+* [Loopring.js](protocol/loopring.js.md)
+* [Startand Relayer API](protocol/startand-relayer-api.md)
+
+## Relayer
+
+* [About](relayer/about.md)
+* [Standard API](relayer/apis.md)
+* [Lightcone.js](relayer/lightcone.js.md)
+* [Lightcone.py](relayer/lightcone.py.md)
+* [Lightcone.jar](relayer/lightcone.jar.md)
+* [Lightcone Relayer](relayer/lightcone-relayer.md)
+
+## Resources
+
+* [Resources](resources/resources.md)
 
