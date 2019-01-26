@@ -4,18 +4,6 @@
 {% api-method-summary %}
 API Endpoint
 {% endapi-method-summary %}
-
-{% api-method-description %}
-
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
 {% endapi-method-response-example-description %}
 
 ```
