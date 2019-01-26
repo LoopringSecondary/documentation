@@ -11,12 +11,6 @@ This endpoint allows you to get free cakes.
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="id" type="string" %}
-ID of the cake to get, for free of course.
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
 {% api-method-headers %}
 {% api-method-parameter name="Authentication" type="string" required=true %}
 Authentication token to track down who is emptying our stocks.
@@ -32,6 +26,12 @@ The API will do its best to find a cake matching the provided recipe.
 Whether the cake should be gluten-free or not.
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
+
+{% api-method-body-parameters %}
+{% api-method-parameter name="" type="object" required=true %}
+The Object object 
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
