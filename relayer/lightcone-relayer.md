@@ -30,7 +30,7 @@ API Endpoint
 All API has the same URI
 {% endhint %}
 
-{% api-method method="post" host="https://lightcone.io" path="/api/v1" %}
+{% api-method method="" host="https://lightcone.io" path="/api/v1" %}
 {% api-method-summary %}
 GetServerTime
 {% endapi-method-summary %}
@@ -49,7 +49,14 @@ Authentication token to track down who is emptying our stocks.
 
 {% api-method-body-parameters %}
 {% api-method-parameter name="" type="object" required=true %}
-aaaa
+```javascript
+{
+  "jsonrpc": "2.0",
+  "method": "loopring_getServerTime",
+  "params": [],
+  "id": 1
+}
+```
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
