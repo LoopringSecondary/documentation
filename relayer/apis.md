@@ -29,7 +29,13 @@ Whether the cake should be gluten-free or not.
 
 {% api-method-body-parameters %}
 {% api-method-parameter name="" type="object" required=true %}
-{AAA}
+```javascript
+{
+    "name": "Cake's name",
+    "recipe": "Cake's recipe name",
+    "cake": "Binary cake"
+}
+```
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
