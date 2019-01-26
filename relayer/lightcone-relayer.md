@@ -1,10 +1,5 @@
 # Lightcone Relayer
 
-{% api-method method="get" host="https://api.cakes.com" path="/v1/cakes/:id" %}
-{% api-method-summary %}
-Get Cakes
-{% endapi-method-summary %}
-
 {% api-method-description %}
 This endpoint allows you to get free cakes.
 {% endapi-method-description %}
