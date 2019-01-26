@@ -4,10 +4,10 @@
 
 ## Protocol
 
-* [About](protocol2/untitled-1.md)
-* [Specification](protocol2/specification.md)
-* [Protocol Smart Contracts](protocol2/loopring-2.0-smart-contracts.md)
-* [Loopring.js](protocol2/loopring.js.md)
+* [About](protocol/untitled-1.md)
+* [Specification](protocol/specification.md)
+* [Protocol Smart Contracts](protocol/loopring-2.0-smart-contracts.md)
+* [Loopring.js](protocol/loopring.js.md)
 
 ## Relayer
 

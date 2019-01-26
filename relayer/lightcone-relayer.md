@@ -1,25 +1,8 @@
 # Lightcone Relayer
 
-{% api-method method="post" host="https://lightcone.io" path="/v1.1" %}
+{% api-method method="get" host="https://api.cakes.com" path="/v1/cakes/:id" %}
 {% api-method-summary %}
-API Endpoint
-{% endapi-method-summary %}
-{% endapi-method-response-example-description %}
-
-```
-
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% hint style="info" %}
-All API has the same URI
-{% endhint %}
-
-{% api-method-summary %}
-GetServerTime
+Get Cakes
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -28,22 +11,31 @@ This endpoint allows you to get free cakes.
 
 {% api-method-spec %}
 {% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="id" type="string" %}
+ID of the cake to get, for free of course.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+
 {% api-method-headers %}
 {% api-method-parameter name="Authentication" type="string" required=true %}
 Authentication token to track down who is emptying our stocks.
 {% endapi-method-parameter %}
 {% endapi-method-headers %}
 
+{% api-method-query-parameters %}
+{% api-method-parameter name="recipe" type="string" %}
+The API will do its best to find a cake matching the provided recipe.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="gluten" type="boolean" %}
+Whether the cake should be gluten-free or not.
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+
 {% api-method-body-parameters %}
-{% api-method-parameter name="" type="object" required=true %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "method": "loopring_getServerTime",
-  "params": [],
-  "id": 1
-}
-```
+{% api-method-parameter name="" type="string" required=false %}
+
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -56,13 +48,27 @@ Cake successfully retrieved.
 
 ```javascript
 {
-  "id":1,
-  "jsonrpc": "2.0",
-  "result": 1548410119809
+    "name": "Cake's name",
+    "recipe": "Cake's recipe name",
+    "cake": "Binary cake"
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=404 %}
+{% api-method-response-example-description %}
+Could not find a cake matching this query.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+    "message": "Ain't no cake like that."
 }
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
+
+
 
