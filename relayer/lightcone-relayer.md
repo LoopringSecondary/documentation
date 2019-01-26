@@ -18,7 +18,6 @@ API Endpoint
 All API has the same URI
 {% endhint %}
 
-{% api-method method="" host="https://lightcone.io" path="/api/v1" %}
 {% api-method-summary %}
 GetServerTime
 {% endapi-method-summary %}
