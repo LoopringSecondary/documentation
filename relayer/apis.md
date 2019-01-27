@@ -1519,13 +1519,218 @@ getTransactions
 ```
 {% endtab %}
 
-{% tab title="response" %}
+{% tab title="Response" %}
 ```text
 [
   {
     "symbol": "LRC",
     "balance": "0x1326beb03e0a0000",
     "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  },
+  ...
+]
+```
+{% endtab %}
+{% endtabs %}
+
+#### **orders**
+
+ 订阅用户的订单
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "market": "LRC-WETH",
+  "status": "0x0"
+}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+[
+  {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "version": "0x0",
+    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xde0b6b3a7640000",
+    "validSince": "0x5c4b0cb3",
+    "amountB": "0x3635c9adc5dea00000",
+    "params": {
+      "validUnit": "0x5c4cacb3",
+      "allOrNone": "0x0",
+      "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
+      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
+      "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
+    },
+    "feeParams": {
+      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountFee": "0xde0b6b3a7640000"
+    },
+    "signType": "0x0"
+  },
+  ...
+]
+```
+{% endtab %}
+{% endtabs %}
+
+**trades**
+
+订阅用户的交易记录
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582","market":"LRC-WETH"}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+[
+  {
+    "orderHash": "",
+    "ringHash": "",
+    "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xa",
+    "amountB": "0x1",
+    "amountFee": "0x2",
+    "time": "0x5c4add07",
+    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
+  },
+  ...
+]
+```
+{% endtab %}
+{% endtabs %}
+
+**orderbook**
+
+订阅Orderook
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{"level":0,"size":100,"market":"LRC-WETH"}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+{
+  "lastPrice": 0.0007,
+  "sells": [
+    {
+      "amount": 1000,
+      "price": 0.0007,
+      "total": 0.7
+    },
+    ...
+  ],
+  "buys": [
+    {
+      "amount": 1000,
+      "price": 0.00069,
+      "total": 0.69
+    },
+    ...
+  ]
+}
+```
+{% endtab %}
+{% endtabs %}
+
+**ticker**
+
+订阅Ticker数据
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{"market":"LRC-WETH"}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+{
+    "high" : 30384.2,
+    "low" : 19283.2,
+    "last" : 28002.2,
+    "vol" : 1038,
+    "amount" : 1003839.32,
+    "buy" : 122321,
+    "sell" : 12388,
+    "change" : "50.12%"
+}
+```
+{% endtab %}
+{% endtabs %}
+
+### 高级接口
+
+#### **transfers**
+
+订阅用户的transfer事件信息
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{"tokens":["LRC","WETH"],"type":"0x0","status":"0x0"}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+[
+  {
+    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+    "token": "LRC",
+    "amount": "1000.0000",
+    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
+    "time": "0x5c4add07",
+    "status": 0
+  },
+  ...
+]
+```
+{% endtab %}
+{% endtabs %}
+
+**transactions**
+
+ ****订阅用户的transaction数据
+
+{% tabs %}
+{% tab title="Request" %}
+```text
+{"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582"}
+```
+{% endtab %}
+
+{% tab title="Response" %}
+```text
+[
+  {
+    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+    "value": "1000.0000",
+    "gasPrice": "0x2540be400",
+    "gasLimit": "0x5208",
+    "gasUsed": "0x5208",
+    "data": "0x",
+    "nonce": "0x9",
+    "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+    "blockNum": "0x6cc501",
+    "time": "0x5c4add07",
+    "status": 0
   },
   ...
 ]
