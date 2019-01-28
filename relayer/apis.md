@@ -44,7 +44,7 @@ description: 路印光锥中继API文档
 
 ### 基础接口
 
-{% api-method method="post" path="" %}
+{% api-method method="post" path="/v1.1" host="https://lightcone.io" %}
 {% api-method-summary %}
 getServerTime
 {% endapi-method-summary %}
@@ -61,7 +61,7 @@ getServerTime
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="method" type="string" required=true %}
-"loopring\_getServerTime"
+"loopring\_get\_server\_time"
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="params" type="array" required=true %}
@@ -109,12 +109,12 @@ string 或者 integer
 {% endapi-method-spec %}
 {% endapi-method %}
 
-请求Example
+Request Example
 
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getServerTime",
+  "method": "loopring_get_server_time",
   "params": [],
   "id": 1
 }
