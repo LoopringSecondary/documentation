@@ -48,11 +48,24 @@ All JSON RPC shares the following request parameters:
 {% code-tabs-item title="JSON RPC Error Response Template" %}
 ```javascript
 {
-  "error"...
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32603,
+    "message": "some readable message"
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+> The error response contains the following fields:
+>
+> * **jsonrpc**: this filed will always have "2.0" as the value.
+> * **id**: this field will have the same value as presented in the request.
+> * **error**: the error object which has two fields:
+>   * code: required, the integer error code. For a list of error code, please see the Error Code section below.
+>   * message: optional, a readable message.
 
 ## JSON RPCS
 
@@ -65,8 +78,8 @@ All JSON RPC shares the following request parameters:
 ```javascript
 {
   "jsonrpc": "2.0",
-  "method": "get_time",
-  "id": 1
+  "id": 1,
+  "method": "get_time"
 }
 ```
 {% endcode-tabs-item %}
@@ -76,13 +89,68 @@ All JSON RPC shares the following request parameters:
 {% code-tabs-item title="Response Example" %}
 ```javascript
 {
-  "id":1,
   "jsonrpc": "2.0",
+  "id":1,
   "result": 1548410119809 // timestamp in milisecond
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+### get\_markets
+
+Get a list of markets supported by the relayer and their metadata.
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "get_markets",
+  "params": {
+    "status": "active"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **params** object supports the following parameters:
+>
+> * **status**: optional, the status of the markets to be retrieved, can be either "active" or "suspended", defaults to "active". When use the default value, the entire **params** object can be omitted.
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "markets" = [{
+      "id": "LRC-WETH",
+      "precisionForAmount": 5,
+      "precisionForTotal": 8,
+      "precisionForPrice": 5
+    },
+    ...]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **result** object contains the following fields:
+>
+> * **markets**: a list of markets and their metadata.
+>
+> Each market has the following metadata:
+>
+> * **symbol**: the id of the market.
+> * **status**: the status of the market, "active" or "suspended"
+> * **precisionFormAmount**:
+> * **precisionForTotal**:
+> * **precisionForPrice**:
 
 ### submit\_order
 
@@ -93,8 +161,8 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
 ```javascript
 {
   "jsonrpc": "2.0",
-  "method": "submit_order",
   "id": 1,
+  "method": "submit_order",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "version": "0x0",
@@ -121,21 +189,23 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The params object represent a signed Loopring order. For more information regarding the order data structure and order signing, please refer JSON Schema.
+> The **params** object is a signed Loopring order. 
+>
+> Please refer to JSON Schema for more information regarding the order structure and how orders are signed.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```javascript
-  {
-    "id":1,
-    "jsonrpc": "2.0",
-    "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9" 
-  }
+{
+  "jsonrpc": "2.0",
+  "id":1,
+  "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9" 
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The result is the hash \(id\) of the order that has been submitted. Please refer to JSON Schema for how the order's hash is calculated.
+> * **result**: the hash \(id\) of the order that has been submitted. Please refer to JSON Schema for more information regarding how order hash \(id\) is calculated.
 
 ### cance\_order
 
@@ -146,20 +216,18 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 ```javascript
 {
   "jsonrpc": "2.0",
+  "id": 1,
   "method": "cancel_order",
   "params": {
    "orderHash":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
    "timestamp":1548654606,
    "sig":"0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
-  },
-  "id": 1
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The **params** object supports the following parameters:
->
 > * **orderHash**: required, the hash of the order to be soft-cancelled.
 > * **timestamp**: required, the current timestamp.
 > * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
@@ -170,15 +238,15 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 {% code-tabs-item title="Response Example" %}
 ```javascript
 {
-  "id":1,
   "jsonrpc": "2.0",
-  "result":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
+  "id":1,
+  "result": "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> * **result**: the  hash of the order that has been cancelled.
+> * **result**: the hash of the order that has been cancelled.
 
 ### cancel\_orders
 
@@ -189,14 +257,14 @@ Cancel all orders for a trading pair.
 ```javascript
 {
   "jsonrpc": "2.0",
+  "id": 1,
   "method": "cancel_orders",
   "params": {
     "market": "LRC-WETH",
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "timestamp": 1548654606,
     "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
-  },
-  "id": 1
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -212,116 +280,50 @@ Cancel all orders for a trading pair.
 > A cancellation request is valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
+{% code-tabs-item title="Resonse Example" %}
+```javascript
 {
-   "id":1,
   "jsonrpc": "2.0",
+  "id":1,
   "result": 20 //代表被取消的订单数量
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_orders
+> * **result**: the number of orders that have been cancelled.
 
-获取用户的订单列表
+### get\_order
+
+Get  orders based on their hashes.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
-  "method": "get_orders",
-  "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "market": "LRC-WETH",
-      "status": "0x0",
-      "pageNum": 1,
-      "pageSize": 50
-    }
-  ],
-  "id": 1
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-#### status 
-
-* "0x0" 代表pending
-* "0x1" 代表撮合完成
-* "0x2"代表取消
-* "0x3"代表失效过期的
-
-{% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
-{
   "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "pageNum": 1,
-    "pageSize": 50,
-    "total": 60,
-    "records": [
-      {
-        {
-          "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-          "version": "0x0",
-          "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-          "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-          "amountS": "0xde0b6b3a7640000",
-          "validSince": "0x5c4b0cb3",
-          "amountB": "0x3635c9adc5dea00000",
-          "params": {
-            "validUnit": "0x5c4cacb3",
-            "allOrNone": "0x0",
-            "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
-          },
-          "feeParams": {
-            "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-            "amountFee": "0xde0b6b3a7640000"
-          },
-          "signType": "0x0"
-        }
-      },
-      ...
-    ]
+  "method": "get_orders",
+  "params": {
+    "order_hash": "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
   }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_order
-
-根据OrderHash 查询单条Order记录
+> The **params** object supports the following parameters:
+>
+> * **order\_hash**: the hash of the order to be retrieved.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Response Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
-  "method": "get_order",
-  "params": [
-    "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
-  ],
-  "id": 1
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-{% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
-{
   "id": 1,
-  "jsonrpc": "2.0",
   "result": {
-    {
+    "order": {
       "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
       "version": "0x0",
       "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
@@ -346,43 +348,89 @@ Cancel all orders for a trading pair.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_market\_meta\_data
+> The **result** object contains the following fields:
+>
+> * **order**: the order retrieved. If no order is found for a hash, an error object will be returned instead.
+>
+> The order's Dual Authoring private key will not be returned.
 
-获取relay支持的市场信息
+### get\_orders
+
+Get a list of orders.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
-  "method": "get_market_meta_data",
+  "id": 1,
+  "method": "get_orders",
   "params": {
-    "market": "LRC-WETH"
-  },
-  "id": 1
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "markets": ["LRC-WETH"],
+    "statuses": ["0x0"],
+    "pageNum": 1,
+    "pageSize": 50
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+> The **params** object supports the following parameters:
+>
+> * **owner**: required, the owing address of orders.
+> * **markets**: optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+> * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.
+> * **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
+> * **pageSize**: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
+{% code-tabs-item title="Response Example" %}
+```javascript
 {
   "id": 1,
   "jsonrpc": "2.0",
-  "result": [
-    {
-      "symbol": "LRC-WETH",
-      "precisionForAmount": 5,
-      "precisionForTotal": 8,
-      "precisionForPrice": 5
-    }
-  ]
+  "result": {
+    "pageNum": 1,
+    "pageSize": 50,
+    "total": 60,
+    "orders": [
+      {
+        "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "version": "0x0",
+        "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amountS": "0xde0b6b3a7640000",
+        "validSince": "0x5c4b0cb3",
+        "amountB": "0x3635c9adc5dea00000",
+        "params": {
+          "validUnit": "0x5c4cacb3",
+          "allOrNone": "0x0",
+          "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
+        },
+        "feeParams": {
+          "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amountFee": "0xde0b6b3a7640000"
+        },
+        "signType": "0x0"
+      },
+      ...
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+> The **result** object contains the following fields:
+>
+> * **pageNum**: the current page number \(same as in the request\).
+> * **pageSize**: the size of the page \(same as in the request\).
+> * **total**: the total number of orders available.
+> * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
+>
+> The Dual Authoring private keys will not be returned.
 
 ## Error Codes
 
