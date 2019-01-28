@@ -108,13 +108,17 @@ get\_time
 
 Request Example
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="Excample" %}
+```javascript
 {
   "jsonrpc": "2.0",
-  "method": "get_time",
-  "id": 1
+  "id": 1,
+  "method": "get_time"
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% api-method method="post" %}
 {% api-method-summary %}
@@ -186,8 +190,8 @@ Request Example
 {% endapi-method-spec %}
 {% endapi-method %}
 
-请求 Example
-
+{% code-tabs %}
+{% code-tabs-item title="Example" %}
 ```javascript
 {
   "jsonrpc": "2.0",
@@ -198,23 +202,12 @@ Request Example
   }
 }
 ```
-
-#### Order 订单结构
-
-请求Example
-
-```text
-{
-  "jsonrpc": "2.0",
-  "method": "loopring_getMarketMetaData",
-  "params": ["LRC-WETH"],
-  "id": 1
-}
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% api-method method="post" %}
 {% api-method-summary %}
- getAssets
+get\_balances 
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -224,20 +217,8 @@ Request Example
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
- loopring\_getAssets
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
+{% api-method-parameter name="params" type="object" required=true %}
  如：\["LRC","WETH"\]
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -286,21 +267,21 @@ Request Example
 {% endapi-method-spec %}
 {% endapi-method %}
 
- 请求 Example
-
-```text
+{% code-tabs %}
+{% code-tabs-item title="Example" %}
+```typescript
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getAssets",
-  "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "tokens": ["LRC"]
-    }
-  ],
-  "id": 1
+  "method": "get_balances",
+  "id": 1,
+  "params": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "tokens": ["LRC"]
+  }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 
 
