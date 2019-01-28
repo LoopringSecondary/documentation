@@ -40,9 +40,20 @@ description: 路印光锥中继API文档
   * transferDataS : Hex String \* 不确定含义
 * signType: Hex String \(0 代表Ethereum Sign ,1 代表EIP712签名方式\)
 
-## RPC 接口
+## Loopring Relayer Standard JSON RPC
 
-### 基础接口
+All Loopring relayer shall implement the following standard JSON RPC. All RPC share the same endpoint and only use the HTTP POST method.
+
+All JSON RPC shares the following request parameters:
+
+```text
+{
+  "jsonrpc": "2.0", // must be "2.0"
+  "method": "method_name", // the method to be invoked
+  "params": [], // the method's parameters 
+  "id": 1 // a unique id for each invocation.
+}
+```
 
 {% api-method method="post" path="/v1.1" host="https://lightcone.io" %}
 {% api-method-summary %}
@@ -56,20 +67,12 @@ getServerTime
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-"2.0"
-{% endapi-method-parameter %}
-
 {% api-method-parameter name="method" type="string" required=true %}
 "loopring\_get\_server\_time"
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="params" type="array" required=true %}
 \[\]
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-string 或者 integer
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
