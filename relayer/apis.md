@@ -23,39 +23,37 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% api-method method="post" path="/v1.1" host="https://lightcone.io" %}
-{% api-method-summary %}
-get\_time
-{% endapi-method-summary %}
+### get\_time
 
-{% api-method-description %}
-获取server的时间，单位是毫秒。
-{% endapi-method-description %}
+ 获取server的时间，单位是毫秒
 
-{% api-method-spec %}
-{% api-method-request %}
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_time",
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
+{% code-tabs %}
+{% code-tabs-item title="返回样例：正确" %}
+```text
 {
   "id":1,
   "jsonrpc": "2.0",
   "result": 1548410119809
 }
 ```
-{% endapi-method-response-example %}
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
+{% code-tabs %}
+{% code-tabs-item title="返回样例:错误" %}
+```text
 {
   "id": 1,
   "jsonrpc": "2.0",
@@ -63,22 +61,6 @@ get\_time
     "code": -32603,
     "message": ""
   }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-Request Example
-
-{% code-tabs %}
-{% code-tabs-item title="Excample" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "get_time"
 }
 ```
 {% endcode-tabs-item %}
