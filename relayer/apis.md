@@ -10,15 +10,17 @@ All JSON RPC shares the following request parameters:
 {% code-tabs-item title="JSON RPC Request Template" %}
 ```javascript
 {
-  "jsonrpc": "2.0", // required, must be "2.0"
-  "method": "method_name", // required, the method to be invoked
-  "id": 1, // required, a unique id for each invocation
-  "params": {} // optional, the method's parameter object
+  "jsonrpc": "2.0",
+  "method": "method_name",
+  "id": 1, 
+  "params": {}
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+> The following fields are supported in the request object:
+>
 > * **jsonrpc**: required, and its value must be "2.0".
 > * **method**: required, the method to be invoked.
 > * **id**: required: a random integer number associated with this request.
@@ -36,9 +38,27 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## get\_time
+> The response object contains the following fields:
+>
+> * **jsonrpc**: this filed will always have "2.0" as the value.
+> * **id**: this field will have the same value as presented in the request.
+> * **result**: this filed is the returned value or object.
 
- Get server time in millisecond.
+{% code-tabs %}
+{% code-tabs-item title="JSON RPC Error Response Template" %}
+```javascript
+{
+  "error"...
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## JSON RPCS
+
+### get\_time
+
+ Get the relayer's time in millisecond.
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
@@ -64,9 +84,9 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## submit\_order
+### submit\_order
 
-Submit a limit price order.  Please refer to [JSON Schema](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) for the definition of a Loopring order.
+Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) for the definition of a Loopring order.
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
@@ -74,34 +94,34 @@ Submit a limit price order.  Please refer to [JSON Schema](https://docs.loopring
 {
   "jsonrpc": "2.0",
   "method": "submit_order",
-  "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "version": "0x0",
-      "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "amountS": "0xde0b6b3a7640000",
-      "validSince": "0x5c4b0cb3",
-      "amountB": "0x3635c9adc5dea00000",
-      "params": {
-        "validUnit": "0x5c4cacb3",
-        "allOrNone": "0x0",
-        "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
-        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
-        "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
-      },
-      "feeParams": {
-        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "amountFee": "0xde0b6b3a7640000"
-      },
-      "signType": "0x0"
-    }
-  ],
-  "id": 1
+  "id": 1,
+  "params": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "version": "0x0",
+    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xde0b6b3a7640000",
+    "validSince": "0x5c4b0cb3",
+    "amountB": "0x3635c9adc5dea00000",
+    "params": {
+      "validUnit": "0x5c4cacb3",
+      "allOrNone": "0x0",
+      "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
+      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
+      "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
+    },
+    "feeParams": {
+      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountFee": "0xde0b6b3a7640000"
+    },
+    "signType": "0x0"
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+> The params object represent a signed Loopring order. For more information regarding the order data structure and order signing, please refer JSON Schema.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -115,7 +135,9 @@ Submit a limit price order.  Please refer to [JSON Schema](https://docs.loopring
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## cance\_order
+> The result is the hash \(id\) of the order that has been submitted. Please refer to JSON Schema for how the order's hash is calculated.
+
+### cance\_order
 
 Soft-cancel an order. This will not create a on-chain order cancellation transaction.
 
@@ -138,7 +160,9 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 
 > * **orderHash**: required, the hash of the order to be soft-cancelled.
 > * **timestamp**: required, the current timestamp.
-> * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key.
+> * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
+>
+> Note that such a cancellation request is considered valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -154,13 +178,13 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 
 > * **result**: the  hash of the order that has been cancelled.
 
-## cancel\_orders
+### cancel\_orders
 
-取消指定用户指定市场对的全部订单，如果没有指定市场则取消指定用户的全部订单。
+Cancel all orders for a trading pair.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
   "method": "cancel_orders",
@@ -175,6 +199,15 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+> The requests contains the following parameters:
+>
+> * **market**: The target market to cancel all orders. the market id must be in uppercase.
+> * **owner**: the address whose orders will be cancelled.
+> * **timestamp**: required, the current timestamp.
+> * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
+>
+> Note that such a cancellation request is considered valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}
 {% code-tabs-item title="返回样例" %}
@@ -348,4 +381,8 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## Error Codes
+
+
 

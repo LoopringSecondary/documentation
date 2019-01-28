@@ -4,6 +4,22 @@ description: 路印协议基础数据结构
 
 # JSON Schema
 
+## content:
+
+1\) order statstructure
+
+2\) how order hash \(id\) is calculated
+
+3\) how order should be signed by the owner
+
+4\) how a ring's hash is calculated
+
+5\) how a ring is signed by all dual authoring keys
+
+6\) how soft cancel order request is signed.
+
+
+
 ## Order订单结构
 
 * owner : Address
