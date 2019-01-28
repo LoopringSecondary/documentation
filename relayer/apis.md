@@ -1,5 +1,5 @@
 ---
-description: 路印光锥中继API文档
+description: 路印中继标准API文档
 ---
 
 # Standard API
