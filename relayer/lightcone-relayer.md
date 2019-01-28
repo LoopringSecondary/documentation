@@ -138,3 +138,181 @@ description: 光锥中介中文API 文档，
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### get\_trades
+
+获取用户的成交记录
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_trades",
+  "params": {
+      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "market": "LRC-WETH",
+      "pageNum": 1,
+      "pageSize": 50
+    },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "pageNum": 1,
+    "pageSize": 50,
+    "total": 60,
+    "records": [
+      {
+        "orderHash": "",
+        "ringHash": "",
+        "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amountS": "0xa",
+        "amountB": "0x1",
+        "amountFee": "0x2",
+        "time": "0x5c4add07",
+        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### get\_orderBook
+
+获取order book
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_orderBook",
+  "params": {
+      "level": 0,
+      "size": 100,
+      "market": "LRC-WETH"
+    },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "lastPrice": 0.0007,
+    "sells": [
+      {
+        "amount": 1000,
+        "price": 0.0007,
+        "total": 0.7
+      },
+      ...
+    ],
+    "buys": [
+      {
+        "amount": 1000,
+        "price": 0.00069,
+        "total": 0.69
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### get\_ticker
+
+获取指定交易对的Ticker信息
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "loopring_getTikcer",
+  "params": {
+    "market": "LRC-WETH"
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "high": 30384.2,
+    "low": 19283.2,
+    "last": 28002.2,
+    "vol": 1038,
+    "amount": 1003839.32,
+    "buy": 122321,
+    "sell": 12388,
+    "change": "50.12%"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### get\_transaction\_count
+
+获取指定地址的交易数量
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "loopring_getTransactionCount",
+  "params": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "tag": "latest"
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id":1,
+  "jsonrpc": "2.0",
+  "result": "0x10" // 16
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
+
