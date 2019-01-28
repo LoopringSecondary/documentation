@@ -19,6 +19,23 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+> * **jsonrpc**: required, and its value must be "2.0".
+> * **method**: required, the method to be invoked.
+> * **id**: required: a random integer number associated with this request.
+> * **params**: optional, for come JSON RPC, this is the object containing RPC specific parameters.
+
+{% code-tabs %}
+{% code-tabs-item title="JSON RPC Response Template" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id":1,
+  "result": {}
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## get\_time
 
  Get server time in millisecond.
