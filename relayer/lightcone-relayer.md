@@ -1,5 +1,5 @@
 ---
-description: 光锥中介中文API 文档，
+description: 光锥中继中文API 文档
 ---
 
 # Lightcone Relayer
