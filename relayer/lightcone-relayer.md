@@ -4,72 +4,38 @@
 
 光锥中继JSON RPC接口遵循路印协议JSON RPC接口标准。所有的JSON PRC接口参数如下：
 
-The Lightcone relay implements all Loopring Relayer Standard JSON RPC, as well as a set of extra JSON RPC described in this document. All RPC share the same endpoint and only use the HTTP POST method.
-
-All JSON RPC shares the following request parameters:
-
 {% code-tabs %}
-{% code-tabs-item title="JSON RPC Request Template" %}
-```javascript
+{% code-tabs-item title="JSON-RPC 接口请求模板" %}
+```text
 {
-  "jsonrpc": "2.0",
-  "method": "method_name",
-  "id": 1, 
-  "params": {}
+  "jsonrpc": "2.0", // required, must be "2.0"
+  "method": "method_name", // required, the method to be invoked
+  "id": 1, // required, a unique id for each invocation
+  "params": {} // optional, the method's parameter object
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The request supports the following parameters:
->
-> * **jsonrpc**: required, and its value must be "2.0".
-> * **method**: required, the method to be invoked.
-> * **id**: required: a random integer number associated with this request.
-> * **params**: optional, for come JSON RPC, this is the object containing RPC specific parameters.
+所有的错误返回遵循以下的结构：
 
 {% code-tabs %}
-{% code-tabs-item title="JSON RPC Response Template" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id":1,
-  "result": {}
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% code-tabs-item title="光锥中继失败的返回模板" %}
+```text
 
-> The response contains the following fields:
->
-> * **jsonrpc**: this filed will always have "2.0" as the value.
-> * **id**: this field will have the same value as presented in the request.
-> * **result**: this filed is the returned value or object.
-
-{% code-tabs %}
-{% code-tabs-item title="JSON RPC Error Response Template" %}
-```javascript
 {
-  "jsonrpc": "2.0",
   "id": 1,
+  "jsonrpc": "2.0",
   "error": {
     "code": -32603,
-    "message": "some readable message"
+    "message": ""
   }
-}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The error response contains the following fields:
->
-> * **jsonrpc**: this filed will always have "2.0" as the value.
-> * **id**: this field will have the same value as presented in the request.
-> * **error**: the error object which has two fields:
->   * code: required, the integer error code. For a list of error code, please see the Error Code section below.
->   * message: optional, a readable message.
-
-## Extra Lightcone JSON RPC
+## JSON RPC 接口
 
 * 光锥中继实现了所有路印协议Relay基础接口，详情见路印协议[Standard API](https://docs.loopring.org/~/edit/drafts/-LXHb7K0KYpTs2dW1Cig/relayer/apis)。
 * 光锥中继提供以太坊节点全部JSON RPC 接口，详情见 [Ethereum JSON RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC)。
