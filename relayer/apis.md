@@ -46,18 +46,22 @@ All Loopring relayer shall implement the following standard JSON RPC. All RPC sh
 
 All JSON RPC shares the following request parameters:
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="JSON RPC Request Template" %}
+```javascript
 {
-  "jsonrpc": "2.0", // must be "2.0"
-  "method": "method_name", // the method to be invoked
-  "params": [], // the method's parameters 
-  "id": 1 // a unique id for each invocation.
+  "jsonrpc": "2.0", // required, must be "2.0"
+  "method": "method_name", // required, the method to be invoked
+  "id": 1, // required, a unique id for each invocation
+  "params": {} // optional, the method's parameter object
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% api-method method="post" path="/v1.1" host="https://lightcone.io" %}
 {% api-method-summary %}
-getServerTime
+get\_time
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -66,16 +70,6 @@ getServerTime
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="method" type="string" required=true %}
-"loopring\_get\_server\_time"
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
-\[\]
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
 
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
@@ -117,15 +111,14 @@ Request Example
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_get_server_time",
-  "params": [],
+  "method": "get_time",
   "id": 1
 }
 ```
 
 {% api-method method="post" %}
 {% api-method-summary %}
- getTokenMetaData
+ get\_token\_metadata
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -135,20 +128,8 @@ Request Example
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-"2.0"
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
-"loopring\_getTokenMetaData"
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
- 返回指定token的信息，若不指定，应该返回全部支持的token的信息。如: \["LRC","WETH"\]
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
- 可以为string或integer
+{% api-method-parameter name="params" type="object" required=true %}
+ 返回指定token的信息，若不指定，应该返回全部支持的token的信息。
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -207,12 +188,14 @@ Request Example
 
 请求 Example
 
-```text
+```javascript
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getTokenMetaData",
-  "params": ["LRC","WETH"],
-  "id": 1
+  "method": "get_token_metadata",
+  "id": 1,
+  "params": {
+    "tokens": ["LRC", "WETH"]
+  }
 }
 ```
 
