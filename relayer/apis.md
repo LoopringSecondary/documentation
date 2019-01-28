@@ -19,7 +19,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The following fields are supported in the request object:
+> The request supports the following parameters:
 >
 > * **jsonrpc**: required, and its value must be "2.0".
 > * **method**: required, the method to be invoked.
@@ -38,7 +38,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The response object contains the following fields:
+> The response contains the following fields:
 >
 > * **jsonrpc**: this filed will always have "2.0" as the value.
 > * **id**: this field will have the same value as presented in the request.
@@ -158,11 +158,13 @@ Soft-cancel an order. This will not create a on-chain order cancellation transac
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+> The **params** object supports the following parameters:
+>
 > * **orderHash**: required, the hash of the order to be soft-cancelled.
 > * **timestamp**: required, the current timestamp.
 > * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
 >
-> Note that such a cancellation request is considered valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
+> A cancellation request is valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -200,14 +202,14 @@ Cancel all orders for a trading pair.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> The requests contains the following parameters:
+> The **params** object supports the following parameters:
 >
 > * **market**: The target market to cancel all orders. the market id must be in uppercase.
 > * **owner**: the address whose orders will be cancelled.
 > * **timestamp**: required, the current timestamp.
 > * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
 >
-> Note that such a cancellation request is considered valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
+> A cancellation request is valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}
 {% code-tabs-item title="返回样例" %}
