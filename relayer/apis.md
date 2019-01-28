@@ -40,7 +40,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例：正确" %}
+{% code-tabs-item title="返回样例" %}
 ```text
 {
   "id":1,
@@ -51,188 +51,12 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% code-tabs %}
-{% code-tabs-item title="返回样例:错误" %}
-```text
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+### submitOrder
 
-{% api-method method="post" %}
-{% api-method-summary %}
- get\_token\_metadata
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 获取Relay支持的token的信息，包括最小下单量，最大下单量，保留小数位，地址, symbol,decimal等
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="params" type="object" required=true %}
- 返回指定token的信息，若不指定，应该返回全部支持的token的信息。
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": [
-    {
-      "minTradeAmount": 0,
-      "maxTradeAmount": 100000000,
-      "precision": 5,
-      "decimal": 18,
-      "symbol": "LRC",
-      "address": "0xef68e7c694f40c8202821edf525de3782458639f"
-    },
-    {
-      "minTradeAmount": 0,
-      "maxTradeAmount": 100000000,
-      "precision": 5,
-      "decimal": 18,
-      "symbol": "WETH",
-      "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    }
-  ]
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+用户提交订单, 订单结构可以参考路印协议[JSON Scheam](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) 订单结构
 
 {% code-tabs %}
-{% code-tabs-item title="Example" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "method": "get_token_metadata",
-  "id": 1,
-  "params": {
-    "tokens": ["LRC", "WETH"]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-{% api-method method="post" %}
-{% api-method-summary %}
-get\_balances 
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 获取指定owner 以及token的余额和授权，如果不指定，则应该返回全部支持的token的余额和授权。
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="params" type="object" required=true %}
- 如：\["LRC","WETH"\]
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "records": [
-      {
-        "symbol": "LRC",
-        "balance": "0x1326beb03e0a0000",
-        "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-      },
-      ...
-    ]
-  }
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% code-tabs %}
-{% code-tabs-item title="Example" %}
-```typescript
-{
-  "jsonrpc": "2.0",
-  "method": "get_balances",
-  "id": 1,
-  "params": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "tokens": ["LRC"]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-
-
-请求Example
-
+{% code-tabs-item title="请求样例" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -263,176 +87,124 @@ get\_balances
   "id": 1
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-* owner : Address
-* version : Hex String
-* tokenS : Address
-* tokenB : Address
-* amountS : Hex String
-* amountB : Hex String
-* validSince : Hex String \(seconds\)
-* params:
-  * broker: Address （可选）
-  * dualAuthAddr:Address
-  * dualAuthPrivateKey:Hex String
-  * validUntil : Hex String \(seconds，可选，不设置时代表该订单永远有效\)
-  * allOrNone：Hex String
-  * wallet :Address \* 不确定含义
-  * orderInterceptor: Address \* 不确定含义
-  * dualAuthSig: Hex String
-  * sig : Hex String
-* feeParams:
-  * tokenRecipient: Address（token 收款地址，一般为owner）
-  * amountFee：Hex String
-  * tokenFee：Address
-  * waiveFeePercentaget : Hex String
-  * tokenSFeePercentage : Hex String
-  * tokenBFeePercentage: Hex String
-  * walletSplitPercentage: Hex String
-* ERC1400Params:
-  * tokenStandardS : Hex String \("0x0" 代表 ERC20 ，"0x1"代表ERC1400\)
-  * tokenStandardB: Hex String \("0x0" 代表 ERC20 ，"0x1"代表ERC1400\)
-  * tokenStandardFee : Hex String \("0x0" 代表 ERC20 ，"0x1"代表ERC1400\)
-  * trancheS : Hex String \* 不确定含义
-  * trancheS: Hex String \* 不确定含义
-  * transferDataS : Hex String \* 不确定含义
-* signType: Hex String \(0 代表Ethereum Sign ,1 代表EIP712签名方式\)
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+  {
+    "id":1,
+    "jsonrpc": "2.0",
+    "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9"
+  }
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-请求 Example
+### cancelOrder
 
+用户取消订单
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
 ```text
 {
   "jsonrpc": "2.0",
   "method": "loopring_cancelOrder",
-  "params": [
-    "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
-  ],
+  "params": {
+   "orderHash":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
+   "timestamp":1548654606,
+   "owner":"0xb94065482ad64d4c2b9252358d746b39e820a582",
+   "sig":"0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
+  },
   "id": 1
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method method="post" %}
-{% api-method-summary %}
- cancelOrders
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 取消指定市场对的全部订单，如果没有指定市场，则取消全部订单。
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
-  loopring\_cancelOrders
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
-\["LRC-WETH"\]
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-loopring\_cancelOrder
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
 {
+  "id":1,
   "jsonrpc": "2.0",
-  "method": "loopring_cancelOrders",
-  "params": [
-    {
-      "market": "LRC-WETH"
-    }
-  ],
-  "id": 1
+  "result":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
 }
 ```
-{% endapi-method-response-example %}
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method-response-example httpCode=304 %}
-{% api-method-response-example-description %}
+### cancelOrders
 
-{% endapi-method-response-example-description %}
+取消指定用户指定市场对的全部订单，如果没有指定市场则取消指定用户的全部订单。
 
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": "invalid sig"
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-请求Example
-
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
 ```text
 {
   "jsonrpc": "2.0",
   "method": "loopring_cancelOrders",
+  "params": {
+    "market": "LRC-WETH",
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "timestamp": 1548654606,
+    "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+   "id":1,
+  "jsonrpc": "2.0",
+  "result": 20 //代表被取消的订单数量
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### getOrders
+
+获取用户的订单列表
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "loopring_getOrders",
   "params": [
     {
-      "market": "LRC-WETH"
+      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "market": "LRC-WETH",
+      "status": "0x0",
+      "pageNum": 1,
+      "pageSize": 50
     }
   ],
   "id": 1
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method method="post" %}
-{% api-method-summary %}
- getOrders
-{% endapi-method-summary %}
+#### status 
 
-{% api-method-description %}
-获取用户的订单列表  
-{% endapi-method-description %}
+* "0x0" 代表pending
+* "0x1" 代表撮合完成
+* "0x2"代表取消
+* "0x3"代表失效过期的
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method " type="string" required=true %}
-loopring\_getOrders
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
- 
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
 {
   "id": 1,
   "jsonrpc": "2.0",
@@ -453,9 +225,7 @@ loopring\_getOrders
           "params": {
             "validUnit": "0x5c4cacb3",
             "allOrNone": "0x0",
-            "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
-            "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
-            "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
+            "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
           },
           "feeParams": {
             "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
@@ -469,85 +239,31 @@ loopring\_getOrders
   }
 }
 ```
-{% endapi-method-response-example %}
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
+### getOrderByHash
 
-{% endapi-method-response-example-description %}
+根据OrderHash 查询单条Order记录
 
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-请求Example
-
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getOrders",
+  "method": "loopring_getOrderByHash",
   "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "market": "LRC-WETH",
-      "status": "0x0",
-      "pageNum": 1,
-      "pageSize": 50
-    }
+    "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
   ],
   "id": 1
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-{% api-method method="post" %}
-{% api-method-summary %}
- getOrderByHash
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 根据OrderHash查询单条Order记录
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
-loopring\_getOrderByHash
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
-\["0xfff19b90ccf6eb051dd71aa29350acbcaedb  
-bfb841e66c202fda5bf7bd084b85"\]
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
 {
   "id": 1,
   "jsonrpc": "2.0",
@@ -563,9 +279,7 @@ bfb841e66c202fda5bf7bd084b85"\]
       "params": {
         "validUnit": "0x5c4cacb3",
         "allOrNone": "0x0",
-        "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
-        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
-        "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
+        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
       },
       "feeParams": {
         "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
@@ -576,40 +290,8 @@ bfb841e66c202fda5bf7bd084b85"\]
   }
 }
 ```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-请求Example
-
-```text
-{
-  "jsonrpc": "2.0",
-  "method": "loopring_getOrderByHash",
-  "params": [
-    "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
-  ],
-  "id": 1
-}
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% api-method method="post" host="" path="" %}
 {% api-method-summary %}
