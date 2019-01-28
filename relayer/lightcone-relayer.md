@@ -1,7 +1,3 @@
----
-description: 光锥中继中文API 文档
----
-
 # Lightcone Relayer
 
 ### 光锥中继JSON RPC接口标准

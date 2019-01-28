@@ -1,7 +1,3 @@
----
-description: 路印中继标准API文档
----
-
 # Standard API
 
 ## Loopring Relayer Standard JSON RPC
@@ -23,13 +19,13 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_time
+## get\_time
 
- 获取server的时间，单位是毫秒
+ Get server time in millisecond.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
   "method": "get_time",
@@ -40,24 +36,24 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
+{% code-tabs-item title="Response Example" %}
+```javascript
 {
   "id":1,
   "jsonrpc": "2.0",
-  "result": 1548410119809
+  "result": 1548410119809 // timestamp in milisecond
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### submit\_order
+## submit\_order
 
-用户提交订单, 订单结构可以参考路印协议[JSON Scheam](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) 订单结构
+Submit a limit price order.  Please refer to [JSON Schema](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) for the definition of a Loopring order.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
   "method": "submit_order",
@@ -91,31 +87,30 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
+{% code-tabs-item title="Response Example" %}
+```javascript
   {
     "id":1,
     "jsonrpc": "2.0",
-    "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9"
+    "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9" 
   }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### cance\_order
+## cance\_order
 
-用户取消订单
+Soft-cancel an order. This will not create a on-chain order cancellation transaction.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
-```text
+{% code-tabs-item title="Request Example" %}
+```javascript
 {
   "jsonrpc": "2.0",
   "method": "cancel_order",
   "params": {
    "orderHash":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
    "timestamp":1548654606,
-   "owner":"0xb94065482ad64d4c2b9252358d746b39e820a582",
    "sig":"0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
   },
   "id": 1
@@ -124,9 +119,13 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+> * **orderHash**: required, the hash of the order to be soft-cancelled.
+> * **timestamp**: required, the current timestamp.
+> * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key.
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
-```text
+{% code-tabs-item title="Response Example" %}
+```javascript
 {
   "id":1,
   "jsonrpc": "2.0",
@@ -136,7 +135,9 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### cancel\_orders
+> * **result**: the  hash of the order that has been cancelled.
+
+## cancel\_orders
 
 取消指定用户指定市场对的全部订单，如果没有指定市场则取消指定用户的全部订单。
 
