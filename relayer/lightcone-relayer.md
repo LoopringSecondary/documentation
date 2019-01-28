@@ -41,7 +41,8 @@ description: 光锥中介中文API 文档，
 
 ## JSON RPC 接口
 
-光锥中继实现了所有路印协议Relay基础接口，详情见路印协议[Standard API](https://docs.loopring.org/~/edit/drafts/-LXHb7K0KYpTs2dW1Cig/relayer/apis)。
+* 光锥中继实现了所有路印协议Relay基础接口，详情见路印协议[Standard API](https://docs.loopring.org/~/edit/drafts/-LXHb7K0KYpTs2dW1Cig/relayer/apis)。
+* 光锥中继提供以太坊节点全部JSON RPC 接口，详情见 [Ethereum JSON RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC)。
 
 ###  get\_token\_metadata
 
@@ -52,7 +53,7 @@ description: 光锥中介中文API 文档，
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getTokenMetaData",
+  "method": "get_token_metadata",
   "params": {tokens:["LRC","WETH"]},
   "id": 1
 }
@@ -98,7 +99,7 @@ description: 光锥中介中文API 文档，
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getAssets",
+  "method": "get_balances",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "tokens": [   //token 可以是token的名称或者地址
@@ -191,7 +192,7 @@ description: 光锥中介中文API 文档，
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_orderBook
+### get\_order\_book
 
 获取order book
 
@@ -200,7 +201,7 @@ description: 光锥中介中文API 文档，
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_orderBook",
+  "method": "get_order_book",
   "params": {
       "level": 0,
       "size": 100,
@@ -251,7 +252,7 @@ description: 光锥中介中文API 文档，
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getTikcer",
+  "method": "get_tikcer",
   "params": {
     "market": "LRC-WETH"
   },
@@ -291,7 +292,7 @@ description: 光锥中介中文API 文档，
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getTransactionCount",
+  "method": "get_transaction_count",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "tag": "latest"
@@ -314,5 +315,401 @@ description: 光锥中介中文API 文档，
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+**get\_transfers**
 
+获取用户的转账记录
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_transfers",
+  "params": {
+    "tokens": [
+      "LRC",
+      "WETH"
+    ],
+    "type": "0x0",
+    "status": "0x0",
+    "pageNum": 1,
+    "pageSize": 50
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* type
+  *  "0x0"   ：转入
+  *  "0x1"  ： 转出
+* status
+  * "0x0"  : 成功
+  * "0x1" : 失败 
+  *  "0x2" : pending
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "pageNum": 1,
+    "pageSize": 50,
+    "total": 60"records": [
+      {
+        "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+        "token": "LRC",
+        "amount": "1000.0000",
+        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
+        "time": "0x5c4add07",
+        "status": 0
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+**get\_transactions**
+
+获取用户的以太坊交易
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_transactions",
+  "params": [
+    {
+      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "status": "0x0",
+      "type": "0x0",
+      "pageNum": 1,
+      "pageSize": 50
+    }
+  ],
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+type :
+
+* "0x0"   ETH 转账
+* "0x1"   ERC20 转账
+* "0x2"   cancel
+* "0x3"   撮合订单
+
+status:
+
+* "0x0"  : 成功
+* "0x1" : 失败 
+*  "0x2" : pending
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "pageNum": 1,
+    "pageSize": 50,
+    "total": 60,
+    "records": [
+      {
+        "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+        "value": "1000.0000",
+        "gasPrice": "0x2540be400",
+        "gasLimit": "0x5208",
+        "gasUsed": "0x5208",
+        "data": "0x",
+        "nonce": "0x9",
+        "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+        "blockNum": "0x6cc501",
+        "time": "0x5c4add07",
+        "status": 0
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## Socket 接口
+
+### balances
+
+订阅用户的余额和授权
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "tokens": [
+    "LRC",
+    "WETH"
+  ]
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+[
+  {
+    "symbol": "LRC",
+    "balance": "0x1326beb03e0a0000",
+    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  },
+  ...
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### orders
+
+订阅用户的订单
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "market": "LRC-WETH",
+  "status": "0x0"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+[
+  {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "version": "0x0",
+    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xde0b6b3a7640000",
+    "validSince": "0x5c4b0cb3",
+    "amountB": "0x3635c9adc5dea00000",
+    "params": {
+      "validUnit": "0x5c4cacb3",
+      "allOrNone": "0x0",
+      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
+    },
+    "feeParams": {
+      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountFee": "0xde0b6b3a7640000"
+    },
+    "signType": "0x0"
+  },
+  ...
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### trades
+
+订阅用户的交易记录
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "market": "LRC-WETH"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+[
+  {
+    "orderHash": "",
+    "ringHash": "",
+    "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xa",
+    "amountB": "0x1",
+    "amountFee": "0x2",
+    "time": "0x5c4add07",
+    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
+  },
+  ...
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### order\_book
+
+订阅Order Book
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{"level":0,"size":100,"market":"LRC-WETH"}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+  "lastPrice": 0.0007,
+  "sells": [
+    {
+      "amount": 1000,
+      "price": 0.0007,
+      "total": 0.7
+    },
+    ...
+  ],
+  "buys": [
+    {
+      "amount": 1000,
+      "price": 0.00069,
+      "total": 0.69
+    },
+    ...
+  ]
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+**ticker**
+
+订阅ticker
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{"market":"LRC-WETH"}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+{
+    "high" : 30384.2,
+    "low" : 19283.2,
+    "last" : 28002.2,
+    "vol" : 1038,
+    "amount" : 1003839.32,
+    "buy" : 122321,
+    "sell" : 12388,
+    "change" : "50.12%"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+**transfers**
+
+订阅用户的转账记录
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{"tokens":["LRC","WETH"],"type":"0x0","status":"0x0"}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* type
+  *  "0x0"   ：转入
+  *  "0x1"  ： 转出
+* status
+  * "0x0"  : 成功
+  * "0x1" : 失败 
+  *  "0x2" : pending
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+[
+  {
+    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+    "token": "LRC",
+    "amount": "1000.0000",
+    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
+    "time": "0x5c4add07",
+    "status": 0
+  },
+  ...
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### transactions
+
+订阅用户的以太坊交易
+
+{% code-tabs %}
+{% code-tabs-item title="请求样例" %}
+```text
+{"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582","status":"0x0"}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+status :
+
+* "0x0"   ETH 转账
+* "0x1"   ERC20 转账
+* "0x2"   cancel
+* "0x3"   撮合订单
+
+{% code-tabs %}
+{% code-tabs-item title="返回样例" %}
+```text
+[
+  {
+    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+    "value": "1000.0000",
+    "gasPrice": "0x2540be400",
+    "gasLimit": "0x5208",
+    "gasUsed": "0x5208",
+    "data": "0x",
+    "nonce": "0x9",
+    "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+    "blockNum": "0x6cc501",
+    "time": "0x5c4add07",
+    "status": 0
+  },
+  ...
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
