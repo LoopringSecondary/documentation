@@ -51,7 +51,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### submitOrder
+### submit\_order
 
 用户提交订单, 订单结构可以参考路印协议[JSON Scheam](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) 订单结构
 
@@ -60,7 +60,7 @@ All JSON RPC shares the following request parameters:
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_submitOrder",
+  "method": "submit_order",
   "params": [
     {
       "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -102,7 +102,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### cancelOrder
+### cance\_order
 
 用户取消订单
 
@@ -111,7 +111,7 @@ All JSON RPC shares the following request parameters:
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_cancelOrder",
+  "method": "cancel_order",
   "params": {
    "orderHash":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
    "timestamp":1548654606,
@@ -136,7 +136,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### cancelOrders
+### cancel\_orders
 
 取消指定用户指定市场对的全部订单，如果没有指定市场则取消指定用户的全部订单。
 
@@ -145,7 +145,7 @@ All JSON RPC shares the following request parameters:
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_cancelOrders",
+  "method": "cancel_orders",
   "params": {
     "market": "LRC-WETH",
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -170,7 +170,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### getOrders
+### get\_orders
 
 获取用户的订单列表
 
@@ -179,7 +179,7 @@ All JSON RPC shares the following request parameters:
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getOrders",
+  "method": "get_orders",
   "params": [
     {
       "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -242,7 +242,7 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### getOrderByHash
+### get\_order
 
 根据OrderHash 查询单条Order记录
 
@@ -251,7 +251,7 @@ All JSON RPC shares the following request parameters:
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "loopring_getOrderByHash",
+  "method": "get_order",
   "params": [
     "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
   ],
@@ -292,105 +292,6 @@ All JSON RPC shares the following request parameters:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-{% api-method method="post" host="" path="" %}
-{% api-method-summary %}
- getTrades
-{% endapi-method-summary %}
-
-{% api-method-description %}
-获取用户的成交记录  
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=false %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=false %}
- loopring\_getTrades
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="string" required=false %}
-
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "pageNum": 1,
-    "pageSize": 50,
-    "total": 60,
-    "records": [
-      {
-        "orderHash": "",
-        "ringHash": "",
-        "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "amountS": "0xa",
-        "amountB": "0x1",
-        "amountFee": "0x2",
-        "time": "0x5c4add07",
-        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
-      },
-      ...
-    ]
-  }
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-请求Example
-
-```text
-  "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "market": "LRC-WETH",
-      "pageNum": 1,
-      "pageSize": 50
-    }
-  ],
-  "id": 1
-}
-```
 
 {% api-method method="post" host="" path="" %}
 {% api-method-summary %}
@@ -492,87 +393,9 @@ loopring\_getOrderBook
 }
 ```
 
-{% api-method method="post" host="" path="" %}
-{% api-method-summary %}
-getTikcer
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 获取指定交易对的Ticker信息
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
-loopring\_getTikcer
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
-
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "high": 30384.2,
-    "low": 19283.2,
-    "last": 28002.2,
-    "vol": 1038,
-    "amount": 1003839.32,
-    "buy": 122321,
-    "sell": 12388,
-    "change": "50.12%"
-  }
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-请求 Example
-
 ```text
 {"jsonrpc":"2.0","method":"loopring_getTikcer","params":["LRC-WETH"],"id":1}
 ```
-
-### 高级接口
 
 {% api-method method="post" host="" path="" %}
 {% api-method-summary %}
@@ -1104,10 +927,6 @@ getTransactions
 {% endtab %}
 {% endtabs %}
 
-### 高级接口
-
-#### **transfers**
-
 订阅用户的transfer事件信息
 
 {% tabs %}
@@ -1126,40 +945,6 @@ getTransactions
     "token": "LRC",
     "amount": "1000.0000",
     "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
-    "time": "0x5c4add07",
-    "status": 0
-  },
-  ...
-]
-```
-{% endtab %}
-{% endtabs %}
-
-**transactions**
-
- ****订阅用户的transaction数据
-
-{% tabs %}
-{% tab title="Request" %}
-```text
-{"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582"}
-```
-{% endtab %}
-
-{% tab title="Response" %}
-```text
-[
-  {
-    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
-    "value": "1000.0000",
-    "gasPrice": "0x2540be400",
-    "gasLimit": "0x5208",
-    "gasUsed": "0x5208",
-    "data": "0x",
-    "nonce": "0x9",
-    "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
-    "blockNum": "0x6cc501",
     "time": "0x5c4add07",
     "status": 0
   },
@@ -1233,136 +1018,6 @@ getMarketMetaData
   "error": {
     "code": -32603,
     "message": ""
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="post" host="" %}
-{% api-method-summary %}
- submitOrder
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 用户提交订单
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=false %}
-2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=false %}
-loopring\_submitOrder
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=false %}
-
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=false %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "id":1,
-  "jsonrpc": "2.0",
-  "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9"
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=304 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": "invalid sig"
-  }
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="post" %}
-{% api-method-summary %}
- cancelOrder
-{% endapi-method-summary %}
-
-{% api-method-description %}
- 用户取消指定OrderHash的订单
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="jsonrpc" type="string" required=true %}
- 2.0
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="method" type="string" required=true %}
-  loopring\_cancelOrder
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="params" type="array" required=true %}
-
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="id" type="string" required=true %}
-
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id":1,
-  "jsonrpc": "2.0",
-  "result":"0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=304 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32603,
-    "message": "invalid sig"
   }
 }
 ```
