@@ -2,7 +2,7 @@
 
 ## Loopring Relayer Standard JSON RPC
 
-All Loopring relayer shall implement the following standard JSON RPC. All RPC share the same endpoint and only use the HTTP POST method.
+All Loopring relayers shall implement the following standard JSON RPC. All RPC share the same endpoint and only use the HTTP POST method.
 
 All JSON RPC shares the following request parameters:
 
@@ -48,11 +48,24 @@ All JSON RPC shares the following request parameters:
 {% code-tabs-item title="JSON RPC Error Response Template" %}
 ```javascript
 {
-  "error"...
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32603,
+    "message": "some readable message"
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+> The error response contains the following fields:
+>
+> * **jsonrpc**: this filed will always have "2.0" as the value.
+> * **id**: this field will have the same value as presented in the request.
+> * **error**: the error object which has two fields:
+>   * code: required, the integer error code. For a list of error code, please see the Error Code section below.
+>   * message: optional, a readable message.
 
 ## JSON RPCS
 
@@ -79,6 +92,110 @@ All JSON RPC shares the following request parameters:
   "jsonrpc": "2.0",
   "id":1,
   "result": 1548410119809 // timestamp in milisecond
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### get\_markets
+
+Get a list of markets supported by the relayer and their metadata.
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "get_markets",
+  "params": {
+    "status": "active"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **params** object supports the following parameters:
+>
+> * **status**: optional, the status of the markets to be retrieved, can be either "active" or "suspended", defaults to "active". When use the default value, the entire **params** object can be omitted.
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "markets" = [{
+      "id": "LRC-WETH",
+      "precisionForAmount": 5,
+      "precisionForTotal": 8,
+      "precisionForPrice": 5
+    },
+    ...]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **result** object contains the following fields:
+>
+> * **markets**: a list of markets and their metadata.
+>
+> Each market has the following metadata:
+>
+> * **symbol**: the id of the market.
+> * **status**: the status of the market, "active" or "suspended"
+> * **precisionFormAmount**:
+> * **precisionForTotal**:
+> * **precisionForPrice**:
+
+### get\_tokens
+
+ Get the list of tokens and their metadata related to the markets supported by this relayer.
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "get_tokens",
+  "params": {
+  tokens:["LRC","WETH"]}
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "tokens": [
+      {
+        "symbol": "LRC",
+        "minTradeAmount": 0,
+        "maxTradeAmount": 100000000,
+        "precision": 5,
+        "decimal": 18,
+        "address": "0xef68e7c694f40c8202821edf525de3782458639f"
+      },
+      {  
+        "symbol": "WETH",
+        "minTradeAmount": 0,
+        "maxTradeAmount": 100000000,
+        "precision": 5,
+        "decimal": 18,
+        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"  
+      }
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -225,6 +342,67 @@ Cancel all orders for a trading pair.
 
 > * **result**: the number of orders that have been cancelled.
 
+### get\_order
+
+Get  orders based on their hashes.
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "get_orders",
+  "params": {
+    "order_hash": "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **params** object supports the following parameters:
+>
+> * **order\_hash**: the hash of the order to be retrieved.
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```javascript
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "order": {
+      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "version": "0x0",
+      "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountS": "0xde0b6b3a7640000",
+      "validSince": "0x5c4b0cb3",
+      "amountB": "0x3635c9adc5dea00000",
+      "params": {
+        "validUnit": "0x5c4cacb3",
+        "allOrNone": "0x0",
+        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
+      },
+      "feeParams": {
+        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amountFee": "0xde0b6b3a7640000"
+      },
+      "signType": "0x0"
+    }
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> The **result** object contains the following fields:
+>
+> * **order**: the order retrieved. If no order is found for a hash, an error object will be returned instead.
+>
+> The order's Dual Authoring private key will not be returned.
+
 ### get\_orders
 
 Get a list of orders.
@@ -302,126 +480,6 @@ Get a list of orders.
 > * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
 >
 > The Dual Authoring private keys will not be returned.
-
-### get\_orders
-
-Get  orders based on their hashes.
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "get_orders",
-  "params": {
-    "order_hashes": [
-      "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85"
-    ]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-> The **params** object supports the following parameters:
->
-> * **order\_hashes**: list of hashes for orders to be retrieved.
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "orders": [{
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "version": "0x0",
-      "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "amountS": "0xde0b6b3a7640000",
-      "validSince": "0x5c4b0cb3",
-      "amountB": "0x3635c9adc5dea00000",
-      "params": {
-        "validUnit": "0x5c4cacb3",
-        "allOrNone": "0x0",
-        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
-      },
-      "feeParams": {
-        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "amountFee": "0xde0b6b3a7640000"
-      },
-      "signType": "0x0"
-    }]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-> The **result** object contains the following fields:
->
-> * **orders**: the list of orders retrieved. If no order is found for a hash, the order will be simply missing from the orders list, and there will be no error generated. The order retrieved will be sorted the same way as their hashes in the request.
->
-> The Dual Authoring private keys will not be returned.
-
-### get\_markets
-
-Get a list of markets supported by the relayer and their metadata.
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "get_markets",
-  "params": {
-    "status": "active"
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-> The **params** object supports the following parameters:
->
-> * **status**: optional, the status of the markets to be retrieved, can be either "active" or "suspended", defaults to "active". When use the default value, the entire **params** object can be omitted.
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```javascript
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "markets" = [{
-      "symbol": "LRC-WETH",
-      "precisionForAmount": 5,
-      "precisionForTotal": 8,
-      "precisionForPrice": 5
-    },
-    ...]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-> The **result** object contains the following fields:
->
-> * **markets**: a list of markets and their metadata.
->
-> Each market has the following metadata:
->
-> * **symbol**: the id of the market.
-> * **status**: the status of the market, "active" or "suspended"
-> * **precisionFormAmount**:
-> * **precisionForTotal**:
-> * **precisionForPrice**:
-
-## Error Codes
 
 
 
