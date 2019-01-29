@@ -128,7 +128,8 @@ Get a list of markets supported by the relayer and their metadata.
   "id": 1,
   "result": {
     "markets" = [{
-      "id": "LRC-WETH",
+      "symbol": "LRC-WETH",
+      "status":"active",
       "precisionForAmount": 5,
       "precisionForTotal": 8,
       "precisionForPrice": 5
@@ -200,6 +201,19 @@ Get a list of markets supported by the relayer and their metadata.
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+The **result** object contains the following fields:
+
+> * **tokens**: a list of tokens and their metadata.
+>
+> Each market has the following metadata:
+>
+> * **symbol**: the symbol of the token.
+> * **minTradeAmount**: the minimum amount of trade the relayers will accept
+> * **maxTradeAmount**: the maximum amount of  trade the relayers will accept
+> * **precision**
+> * **decimal**
+> * **address**
 
 ### submit\_order
 
@@ -324,7 +338,7 @@ Cancel all orders for a trading pair.
 > * **market**: The target market to cancel all orders. the market id must be in uppercase.
 > * **owner**: the address whose orders will be cancelled.
 > * **timestamp**: required, the current timestamp.
-> * **sig**: required, the signature of {orderHash,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
+> * **sig**: required, the signature of {market,  timestamp} using this order's owner private key. Please refer to JSON Schema for how this request is signed.
 >
 > A cancellation request is valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
