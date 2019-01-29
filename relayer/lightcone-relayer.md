@@ -414,7 +414,8 @@ The **params** contains the following parameters:
   "result": {
     "pageNum": 1,
     "pageSize": 50,
-    "total": 60"records": [
+    "total": 60",
+    "tranfers": [
       {
         "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
@@ -422,7 +423,7 @@ The **params** contains the following parameters:
         "amount": "1000.0000",
         "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
         "time": "0x5c4add07",
-        "status": 0
+        "status": "0x0"
       },
       ...
     ]
@@ -432,12 +433,16 @@ The **params** contains the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result** contains the following result:
+
+* transfers :  a list of  transfers. Please refer to JSON Schema for more information regarding the transfer structure 
+
 **get\_transactions**
 
-获取用户的以太坊交易
+get the transactions of given address
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -457,21 +462,21 @@ The **params** contains the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-type :
+The **params** contains the following parameters:
 
-* "0x0"   ETH 转账
-* "0x1"   ERC20 转账
-* "0x2"   cancel
-* "0x3"   撮合订单
-
-status:
-
-* "0x0"  : 成功
-* "0x1" : 失败 
-*  "0x2" : pending
+* owner: the owner address of transactions to be retrieved
+* status:
+  * "0x0"  :  succeed
+  * "0x1" : failed 
+  *  "0x2" : pending
+* type:
+  * "0x0"  : eth transfer
+  * "0x1"  : erc20 token transfer
+  * "0x2"  : cancel order
+  * "0x3" : ring mined
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
@@ -480,7 +485,7 @@ status:
     "pageNum": 1,
     "pageSize": 50,
     "total": 60,
-    "records": [
+    "transctions": [
       {
         "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
@@ -503,14 +508,33 @@ status:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Socket 接口
+The **result** contains the following fields:
+
+* transactions: a list of transactions. 
+
+each transaction contained the following fields:
+
+* from : the sender address of the transaction.
+* to : the receiver address of the transaction
+* value: the ethereum transaction value.
+* gasPrice: the ethereum transaction gas price
+* gasLimit: the ethereum transaction gas limit
+* gasUsed: the actual gas that used
+* data : ethereum transaction input
+* nonce:  the ethereum transaction nonce
+* hash: transaction hash
+* blockNum: the blockNum that the transaction mined in
+* time : the block time
+* status
+
+## Socket 
 
 ### balances
 
-订阅用户的余额和授权
+Subscriber balance and allowance of given address
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -523,8 +547,13 @@ status:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The request **params** contains the following parameters:
+
+* owner :  the owner address of balances to subscriber
+* tokens: a list of tokens, each token can be token symbol or token address
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Exmaple" %}
 ```text
 [
   {
@@ -538,26 +567,37 @@ status:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### orders
+The **result** is a list of balanceAndAllowances, and each balanceAndAllowances contains the following fields:
 
-订阅用户的订单
+* **symbol :** token symbol 
+* **balance :** balance in hex string 
+* **allowance:** allowance in hex string 
+
+### **orders**
+
+Subscriber orders of given owner
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "market": "LRC-WETH",
-  "status": "0x0"
+  "markets": ["LRC-WETH"],
+  "statuses": ["0x0"]
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The request **params** supports the following parameters:
+
+* owner: the owner address of orders to subscriber
+* markets: optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved. 
+* statuses: optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.\[
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
-[
   {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "version": "0x0",
