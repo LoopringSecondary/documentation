@@ -181,16 +181,12 @@ Get a list of markets supported by the relayer and their metadata.
     "tokens": [
       {
         "symbol": "LRC",
-        "minTradeAmount": 0,
-        "maxTradeAmount": 100000000,
         "precision": 5,
         "decimal": 18,
         "address": "0xef68e7c694f40c8202821edf525de3782458639f"
       },
       {  
         "symbol": "WETH",
-        "minTradeAmount": 0,
-        "maxTradeAmount": 100000000,
         "precision": 5,
         "decimal": 18,
         "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"  
@@ -206,11 +202,9 @@ The **result** object contains the following fields:
 
 > * **tokens**: a list of tokens and their metadata.
 >
-> Each market has the following metadata:
+> Each token has the following metadata:
 >
 > * **symbol**: the symbol of the token.
-> * **minTradeAmount**: the minimum amount of trade the relayers will accept
-> * **maxTradeAmount**: the maximum amount of  trade the relayers will accept
 > * **precision**
 > * **decimal**
 > * **address**
