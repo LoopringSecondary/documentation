@@ -342,7 +342,7 @@ Cancel all orders for a trading pair.
 {
   "jsonrpc": "2.0",
   "id":1,
-  "result": 20 //代表被取消的订单数量
+  "result": 20 
 }
 ```
 {% endcode-tabs-item %}
