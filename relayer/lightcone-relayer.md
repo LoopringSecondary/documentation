@@ -547,10 +547,7 @@ Subscriber balance and allowance of given address
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The request **params** contains the following parameters:
-
-* owner :  the owner address of balances to subscriber
-* tokens: a list of tokens, each token can be token symbol or token address
+ About the  request **params** please refer to the JSON RPC interface named "get\_balances"
 
 {% code-tabs %}
 {% code-tabs-item title="Response Exmaple" %}
@@ -567,11 +564,7 @@ The request **params** contains the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The **result** is a list of balanceAndAllowances, and each balanceAndAllowances contains the following fields:
-
-* **symbol :** token symbol 
-* **balance :** balance in hex string 
-* **allowance:** allowance in hex string 
+About the **result** please refer to the JSON RPC interface named "get\_balances"
 
 ### **orders**
 
@@ -589,15 +582,12 @@ Subscriber orders of given owner
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The request **params** supports the following parameters:
-
-* owner: the owner address of orders to subscriber
-* markets: optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved. 
-* statuses: optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.\[
+About the request **params,** please refer to the JOSN RPC interface named "get\_orders"
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
+  [
   {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "version": "0x0",
@@ -623,23 +613,27 @@ The request **params** supports the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result** is a list of orders.  Please refer to the [JSON Schema](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) for the definition of a Loopring order.
+
 ### trades
 
-订阅用户的交易记录
+subscriber trades of given trades
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "market": "LRC-WETH"
+  "markets": ["LRC-WETH"]
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+About the request **params**, please refer to the JSON RPC interface named "get\_trade"
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 [
   {
@@ -660,20 +654,24 @@ The request **params** supports the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+About the detail of the result , please refer to the JOSN RPC interface named "get\_trade"
+
 ### order\_book
 
-订阅Order Book
+Subscriber order book of given market
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {"level":0,"size":100,"market":"LRC-WETH"}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+About the request **params** object , please refer to JSON RPC interface named:"get\_order\_book"
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Exmaple" %}
 ```text
 {
   "lastPrice": 0.0007,
@@ -698,20 +696,26 @@ The request **params** supports the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-**ticker**
+About the detail of the result , please refer to the JOSN RPC interface named "get\_order\_book"
 
-订阅ticker
+### **ticker**
+
+Subscriber ticker
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {"market":"LRC-WETH"}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The request **params** contains the following parameters:
+
+* market : the market symbol of ticker to be retrieved
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
     "high" : 30384.2,
@@ -727,28 +731,24 @@ The request **params** supports the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+please refer to the result of JSON RPC interface named "get\_ticker"
+
 **transfers**
 
-订阅用户的转账记录
+Subscriber the transfer  
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {"tokens":["LRC","WETH"],"type":"0x0","status":"0x0"}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* type
-  *  "0x0"   ：转入
-  *  "0x1"  ： 转出
-* status
-  * "0x0"  : 成功
-  * "0x1" : 失败 
-  *  "0x2" : pending
+please refer to the **Params** of JSON RPC interface named "get\_transfer"
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 [
   {
@@ -766,27 +766,24 @@ The request **params** supports the following parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+please refer to the **result** of the JOSN RPC interface named "get\_transfer"
+
 ### transactions
 
-订阅用户的以太坊交易
+Subscriber  the ethereum transactions
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582","status":"0x0"}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-status :
-
-* "0x0"   ETH 转账
-* "0x1"   ERC20 转账
-* "0x2"   cancel
-* "0x3"   撮合订单
+about the detail request parameter, please refer to the JSON RPC interface named "get\_transaction"
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 [
   {
@@ -808,4 +805,6 @@ status :
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+About the detail of  the result,  please refer to the JSON RPC interface named "get\_transaction"
 
