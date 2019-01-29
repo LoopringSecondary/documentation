@@ -291,7 +291,9 @@ get the ticker of given market
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The **Params** contains the 
+The **params** contains the following parameters:
+
+* market : the market symbol of ticker to be retrieved
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -314,12 +316,23 @@ The **Params** contains the
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result**  contains the following fields:
+
+* high:  the highest price for past 24 hours
+* low: the lowest price for past 24 hours
+* last: the latest trade price
+* vol: the volume for past 24 hours
+* amount: the amount of base token traded
+* buy: the total buy amount
+* sell: the total sell amount
+* change: the change rate for past 24 hours
+
 ### get\_transaction\_count
 
-获取指定地址的交易数量
+get the transaction count of given address
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -334,8 +347,15 @@ The **Params** contains the
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **params** contains the following parameters:
+
+* owner:  the address of transaction count to be retrieved.
+* tag:  
+  * "latest" :  only contains the transactions only have mined in blocks
+  * "pending":  also contains pending transactions
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id":1,
@@ -348,10 +368,10 @@ The **Params** contains the
 
 **get\_transfers**
 
-获取用户的转账记录
+get the transfer record of given owner
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -372,16 +392,21 @@ The **Params** contains the
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **params** contains the following parameters:
+
+* tokens: a list of token address
 * type
-  *  "0x0"   ：转入
-  *  "0x1"  ： 转出
+  *  "0x0"   ：income
+  *  "0x1"  ： outcome
 * status
-  * "0x0"  : 成功
-  * "0x1" : 失败 
+  * "0x0"  : succeed
+  * "0x1" : failed 
   *  "0x2" : pending
+* pageNum: optional, the page number. The first page is 1, not 0, defaults to 1.
+* pageSize: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
 
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
