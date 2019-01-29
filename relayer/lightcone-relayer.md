@@ -73,10 +73,10 @@ All JSON RPC shares the following request parameters:
 
 ### get\_balances
 
-获取指定用户指定token的余额和授权信息
+get the balances an allowances of given tokens and owner
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -94,15 +94,20 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The params object support the following parameters:
+
+* owner : the owner address 
+* tokens : a list of tokens, token can token's address or token's symbol
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
   "jsonrpc": "2.0",
   "result": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "records": [
+    "balanceAndAllowances": [
       {
         "symbol": "LRC",
         "balance": "0x1326beb03e0a0000",
@@ -120,19 +125,30 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result** object contains the following fields:
+
+> * **owner** : the given owner address .
+> * **balanceAndAllowances**: a list of given owner's balances and allowances
+>
+> each balanceAndAllowance contains the following fields:
+>
+> * **symbol** : token symbol
+> * **balance** : balance  in hex string
+> * **allowance**: allowance in hex string
+
 ### get\_trades
 
-获取用户的成交记录
+get the given owner's trade record according to given query conditions.
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
   "method": "get_trades",
   "params": {
       "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "market": "LRC-WETH",
+      "markets": ["LRC-WETH"],
       "pageNum": 1,
       "pageSize": 50
     },
@@ -142,8 +158,15 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **params** object support the following parameters:
+
+* **owner** :  owner address
+* **markets**:   optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+* **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
+* **pageSize** : optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
@@ -152,7 +175,7 @@ All JSON RPC shares the following request parameters:
     "pageNum": 1,
     "pageSize": 50,
     "total": 60,
-    "records": [
+    "trades": [
       {
         "orderHash": "",
         "ringHash": "",
@@ -173,12 +196,19 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result** object contains the following fields:
+
+* **pageNum**
+* **pageSize**
+* **total**
+* **trades**: a list of trades.  Please refer to JSON Schema for more information regarding the trade structure 
+
 ### get\_order\_book
 
-获取order book
+get order book of given market 
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -194,8 +224,14 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **params** object support the following parameters:
+
+* **level** : the precision level of order book.
+* **size** : the max size of each sells and buys.
+* **market**: market symbol of order book to be retrieved.
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
@@ -224,12 +260,24 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **result** object contains the following fields:
+
+* **lastPrice**: the latest trade price
+* **buys**:  a list of buys.
+* **sells** : a list of sells.
+
+each buy or sell contains  the following fields:
+
+* **amount**
+* **price**
+* **total**
+
 ### get\_ticker
 
-获取指定交易对的Ticker信息
+get the ticker of given market 
 
 {% code-tabs %}
-{% code-tabs-item title="请求样例" %}
+{% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
@@ -243,8 +291,10 @@ All JSON RPC shares the following request parameters:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The **Params** contains the 
+
 {% code-tabs %}
-{% code-tabs-item title="返回样例" %}
+{% code-tabs-item title="Response Example" %}
 ```text
 {
   "id": 1,
