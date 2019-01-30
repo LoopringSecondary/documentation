@@ -83,3 +83,39 @@ order: {
 * _transferDataS :_ erc1400 token 转账需要的参数 
 *  signType: 0 代表Ethereum Sign ,1 代表EIP712签名方式
 
+## Trade Structure
+
+```text
+trade: {
+  owner: Address,
+  orderHash: HexString,
+  ringHash: HexString,
+  ringIndex: HexString,
+  fillIndex: HexString,
+  txHash: HexString,
+  amountS: HexString,
+  amountB: HexString,
+  tokenS: Address,
+  tokenB: Address,
+  marketKey: HexString,
+  split: HexString,
+  fee: {
+    tokenFee: Address,
+    amountFee: HexString,
+    feeAmountS: HexString,
+    feeAmountB: HexString,
+    feeRecipient: Address,
+    waiveFeePercentage: HexString,
+    walletSplitPercentage: HexString
+  },
+  wallet: Address,
+  miner: Address,
+  blockHeight: HexString,
+  blockTimestamp: HexString
+}
+```
+
+## 
+
+### 
+

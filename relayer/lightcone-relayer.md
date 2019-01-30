@@ -435,7 +435,17 @@ The **params** contains the following parameters:
 
 The **result** contains the following result:
 
-* transfers :  a list of  transfers. Please refer to JSON Schema for more information regarding the transfer structure 
+* transfers :  a list of  transfers. 
+
+Each transfer contains the following result:
+
+* from:  the sender of transfer
+* to: the receiver of transfer
+* token: token that the sender sends to the receiver
+* amount: the amount that the sender sends to the receiver
+* txHash:  tx hash 
+* time : block time
+* status: the status of the transaction 
 
 **get\_transactions**
 
