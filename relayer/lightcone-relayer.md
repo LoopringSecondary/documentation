@@ -2,7 +2,7 @@
 
 ### Lightcone Relayer JSON RPC
 
-The Lightcone relayer implements all Loopring Relayer Standard JSON RPC API, as well as a set of additional JSON RPC API described in this document. The Lightcone relayer also implements [all Ethereum JSON RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC) as well.
+The Lightcone relayer implements all Loopring Relayer Standard JSON RPC API, as well as a set of additional JSON RPC API described in this document. The Lightcone relayer also implements all [Ethereum JSON RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC) as well.
 
 All RPC share the same endpoint and only use the HTTP POST method.
 
