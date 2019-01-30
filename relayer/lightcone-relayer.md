@@ -343,7 +343,75 @@ The **result**  contains the following fields:
 * sell: the total sell amount
 * change: the change rate for past 24 hours
 
-### get\_transaction\_count
+### get\_rings
+
+retrieve rings
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_rings",
+  "params": {
+    "ringHash": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "ringIndex": "0x0",
+    "sort": "asc",
+    "pageNum": 1,
+    "pageSize": 50
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+The **Params** supports the following parameters:
+
+* **ringHash**: optional,  hash of the ring to be retrieved
+* **ringIndex**: optional,  index of the ring to be retrieved
+* **sort**: optional, can be "asc" or "desc", default is "asc"
+* **pageNum:** optional, the page number. The first page is 1, not 0, defaults to 1.
+*  **pageSize :** optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20get\_transaction\_count
+
+```text
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "pageNum": 1,
+    "pageSize": 50,
+    "total": 40,
+    "rings": [
+      "ringHash": "",
+      "ringIndex": "0x1",
+      "fillsAmount": "0x2",
+      "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+      "fees": [
+        {
+          "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amountFee": "0x2",
+          "feeAmountS": "0x0",
+          "feeAmountB": "0x0",
+          "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+          "waiveFeePercentage": "0x0",
+          "walletSplitPercentage": "0x28"
+        }
+      ],
+      blockHeight: "0x8",
+      blockTimestamp: "0x5c4add07"
+    ]
+  }
+}
+```
+
+**Result** contains the following fields :
+
+* pageNum
+* pageSize
+* total
+* rings: a list of rings. Please refer to JSON Schema for more information regarding the [ring structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#ring-structure)
 
 get the transaction count of given address
 
