@@ -413,6 +413,8 @@ The **Params** supports the following parameters:
 * total
 * rings: a list of rings. Please refer to JSON Schema for more information regarding the [ring structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#ring-structure)
 
+### get\_transaction\_count
+
 get the transaction count of given address
 
 {% code-tabs %}
