@@ -83,7 +83,7 @@ get the balances an allowances of given tokens and owner
   "method": "get_balances",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "tokens": [   //token 可以是token的名称或者地址
+    "tokens": [
       "LRC",
       "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     ]
@@ -177,16 +177,32 @@ The **params** object support the following parameters:
     "total": 60,
     "trades": [
       {
+        "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "orderHash": "",
         "ringHash": "",
+        "ringIndex": "0x1",
+        "fillIndex": "0x0",
+        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+        "amountS": "0x8ac7230489e80000",
+        "amountB": "0xde0b6b3a7640000",
         "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
         "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "amountS": "0xa",
-        "amountB": "0x1",
-        "amountFee": "0x2",
-        "time": "0x5c4add07",
-        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
+        "marketKey": "",
+        "split": "0xde0b6b3a7640000",
+        "fee": {
+          "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amountFee": "0x2",
+          "feeAmountS": "0x0",
+          "feeAmountB": "0x0",
+          "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+          "waiveFeePercentage": "0x0",
+          "walletSplitPercentage": "0x28"
+        },
+        "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "blockHeight": "0x8",
+        "blockTimestamp": "0x5c4add07",
+        
       },
       ...
     ]
@@ -201,7 +217,7 @@ The **result** object contains the following fields:
 * **pageNum**
 * **pageSize**
 * **total**
-* **trades**: a list of trades.  Please refer to JSON Schema for more information regarding the trade structure 
+* **trades**: a list of trades.  Please refer to JSON Schema for more information regarding the [trade structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#trade-structure)
 
 ### get\_order\_book
 
