@@ -115,7 +115,42 @@ trade: {
 }
 ```
 
-## 
+* split : 交易时，矿工获得的价差
+* tokenFee：当交易费的token地址
+* amountFee：该撮合中该笔成交付的手续费
+* feeAmountS: P2P交易中付出的tokens作为手续费，
+* feeAmountB:P2P交易中付出的tokenB作为手续费
+* feeRecipient: 接收手续费的地址
+* waiveFeePercentage：矿工设置，免除手续费的比例
+* walletSplitPercentage： DE设置，DEX要收取的交易费比例
+* wallet：DEX收取交易费的地址
+* miner：撮合订单的矿工地址
 
-### 
+## Ring Structure
+
+```text
+ring: {
+  ringHash: HexString,
+  ringIndex: HexString,
+  fillsAmount: HexString,
+  miner: HexString,
+  txHash: HexString,
+  fees: [
+    {
+      tokenFee: Address,
+      amountFee: HexString,
+      feeAmountS: HexString,
+      feeAmountB: HexString,
+      feeRecipient: Address,
+      waiveFeePercentage: HexString,
+      walletSplitPercentage: HexString
+    }
+  ],
+  blockHeight: HexString,
+  blockTimestamp: HexString
+}
+```
+
+* fillsAmount: the fills amount in this ring
+* fees ：a list of Trade Fee
 
