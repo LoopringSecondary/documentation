@@ -8,15 +8,19 @@ description: 路印协议基础数据结构
 
 1\) order structure
 
-2\) how order hash \(id\) is calculated
+2\) trade structure
 
-3\) how order should be signed by the owner
+3\) ring structure
 
-4\) how a ring's hash is calculated
+4\) how order hash \(id\) is calculated
 
-5\) how a ring is signed by all dual authoring keys
+5\) how order should be signed by the owner
 
-6\) how soft cancel order request is signed.
+6\) how a ring's hash is calculated
+
+7\) how a ring is signed by all dual authoring keys
+
+8\) how soft cancel order request is signed.
 
 ## Order  structure
 
