@@ -148,12 +148,10 @@ get the given owner's trade record according to given query conditions.
   "method": "get_trades",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "markets": [
-      {
+    "markets": {
         "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
         "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-      }
-    ],
+      },
     "pageNum": 1,
     "pageSize": 50
   },
@@ -166,7 +164,7 @@ get the given owner's trade record according to given query conditions.
 The **params** object support the following parameters:
 
 * **owner** :  owner address
-* **markets**:   optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+* **market**:   optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
 * **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
 * **pageSize** : optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
 
