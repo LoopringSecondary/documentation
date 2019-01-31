@@ -108,17 +108,11 @@ Get a list of markets supported by the relayer and their metadata.
   "jsonrpc": "2.0",
   "id": 1,
   "method": "get_markets",
-  "params": {
-    "status": "active"
-  }
+  "params": {}
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-> The **params** object supports the following parameters:
->
-> * **status**: optional, the status of the markets to be retrieved, can be either "active" or "suspended", defaults to "active". When use the default value, the entire **params** object can be omitted.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -164,8 +158,7 @@ Get a list of markets supported by the relayer and their metadata.
   "jsonrpc": "2.0",
   "id": 1,
   "method": "get_tokens",
-  "params": {
-  tokens:["LRC","WETH"]}
+  "params": {}
 }
 ```
 {% endcode-tabs-item %}
@@ -317,7 +310,10 @@ Cancel all orders for a trading pair.
   "id": 1,
   "method": "cancel_orders",
   "params": {
-    "market": "LRC-WETH",
+    "market": {
+    "baseToken":"0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken":"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    },
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "timestamp": 1548654606,
     "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
