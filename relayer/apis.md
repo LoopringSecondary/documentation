@@ -420,15 +420,14 @@ Get a list of orders.
   "method": "get_orders",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "markets": [
-      {
+    "market": {
         "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
         "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-      }
-    ],
+      },
     "statuses": [
       "0x0"
     ],
+    "sort":"asc",
     "pageNum": 1,
     "pageSize": 50
   }
@@ -440,8 +439,9 @@ Get a list of orders.
 > The **params** object supports the following parameters:
 >
 > * **owner**: required, the owing address of orders.
-> * **markets**: optional, the list of markets from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+> * **market**: optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
 > * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.
+> * sort: "asc" or "desc"
 > * **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
 > * **pageSize**: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
 
