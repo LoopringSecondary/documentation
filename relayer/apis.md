@@ -420,8 +420,15 @@ Get a list of orders.
   "method": "get_orders",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "markets": ["LRC-WETH"],
-    "statuses": ["0x0"],
+    "markets": [
+      {
+        "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+      }
+    ],
+    "statuses": [
+      "0x0"
+    ],
     "pageNum": 1,
     "pageSize": 50
   }
