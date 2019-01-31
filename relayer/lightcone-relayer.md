@@ -915,7 +915,11 @@ Subscriber  the ethereum transactions
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
-{"owner":"0xb94065482ad64d4c2b9252358d746b39e820a582","status":"0x0"}
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "status": "succeed",
+  "type": "0x0"
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -938,7 +942,7 @@ about the detail request parameter, please refer to the JSON RPC interface named
     "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
     "blockNum": "0x6cc501",
     "time": "0x5c4add07",
-    "status": 0
+    "status": "succeed"
   },
   ...
 ]
