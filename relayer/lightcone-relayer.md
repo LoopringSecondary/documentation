@@ -84,7 +84,7 @@ get the balances an allowances of given tokens and owner
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "tokens": [
-      "LRC",
+      "0xef68e7c694f40c8202821edf525de3782458639f",
       "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     ]
   },
@@ -97,7 +97,7 @@ get the balances an allowances of given tokens and owner
 The params object support the following parameters:
 
 * owner : the owner address 
-* tokens : a list of tokens, token can token's address or token's symbol
+* tokens : a list of token addresses
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -109,12 +109,12 @@ The params object support the following parameters:
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "balanceAndAllowances": [
       {
-        "symbol": "LRC",
+        "address": "0xef68e7c694f40c8202821edf525de3782458639f",
         "balance": "0x1326beb03e0a0000",
         "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
        {
-        "symbol": "WETH",
+        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
         "balance": "0x1326beb03e0a0000",
         "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
@@ -132,7 +132,7 @@ The **result** object contains the following fields:
 >
 > each balanceAndAllowance contains the following fields:
 >
-> * **symbol** : token symbol
+> * **address** : token address
 > * **balance** : balance  in hex string
 > * **allowance**: allowance in hex string
 
@@ -147,11 +147,16 @@ get the given owner's trade record according to given query conditions.
   "jsonrpc": "2.0",
   "method": "get_trades",
   "params": {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "markets": ["LRC-WETH"],
-      "pageNum": 1,
-      "pageSize": 50
-    },
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "markets": [
+      {
+        "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+      }
+    ],
+    "pageNum": 1,
+    "pageSize": 50
+  },
   "id": 1
 }
 ```
@@ -230,10 +235,13 @@ get order book of given market
   "jsonrpc": "2.0",
   "method": "get_order_book",
   "params": {
-      "level": 0,
-      "size": 100,
-      "market": "LRC-WETH"
-    },
+    "level": 0,
+    "size": 100,
+    "market": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
+  },
   "id": 1
 }
 ```
@@ -299,7 +307,10 @@ get the ticker of given market
   "jsonrpc": "2.0",
   "method": "get_tikcer",
   "params": {
-    "market": "LRC-WETH"
+    "market": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
   },
   "id": 1
 }
@@ -413,9 +424,9 @@ The **Params** supports the following parameters:
 * total
 * rings: a list of rings. Please refer to JSON Schema for more information regarding the [ring structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#ring-structure)
 
-### get\_transaction\_count
+### get\_nonce
 
-get the transaction count of given address
+get the next  nonce of given address
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
@@ -464,11 +475,11 @@ get the transfer record of given owner
   "method": "get_transfers",
   "params": {
     "tokens": [
-      "LRC",
-      "WETH"
+      "0xef68e7c694f40c8202821edf525de3782458639f",
+      "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     ],
-    "type": "0x0",
-    "status": "0x0",
+    "type": "income",
+    "status": "succeed",
     "pageNum": 1,
     "pageSize": 50
   },
@@ -482,12 +493,12 @@ The **params** contains the following parameters:
 
 * tokens: a list of token address
 * type
-  *  "0x0"   ：income
-  *  "0x1"  ： outcome
+  *  "income" 
+  *  "outcome" 
 * status
-  * "0x0"  : succeed
-  * "0x1" : failed 
-  *  "0x2" : pending
+  * "succeed" 
+  * "failed"  
+  *  "pending" 
 * pageNum: optional, the page number. The first page is 1, not 0, defaults to 1.
 * pageSize: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
 
@@ -509,7 +520,7 @@ The **params** contains the following parameters:
         "amount": "1000.0000",
         "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
         "time": "0x5c4add07",
-        "status": "0x0"
+        "status": "succeed"
       },
       ...
     ]
@@ -546,7 +557,7 @@ get the transactions of given address
   "params": [
     {
       "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "status": "0x0",
+      "status": "succeed",
       "type": "0x0",
       "pageNum": 1,
       "pageSize": 50
@@ -562,9 +573,9 @@ The **params** contains the following parameters:
 
 * owner: the owner address of transactions to be retrieved
 * status:
-  * "0x0"  :  succeed
-  * "0x1" : failed 
-  *  "0x2" : pending
+  * "succeed"
+  * "failed"  
+  *  "pending" 
 * type:
   * "0x0"  : eth transfer
   * "0x1"  : erc20 token transfer
@@ -594,8 +605,8 @@ The **params** contains the following parameters:
         "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
         "blockNum": "0x6cc501",
         "time": "0x5c4add07",
-        "status": 0
-      },
+        "status": 0      
+        },
       ...
     ]
   }
@@ -635,8 +646,8 @@ Subscriber balance and allowance of given address
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
   "tokens": [
-    "LRC",
-    "WETH"
+    "0xef68e7c694f40c8202821edf525de3782458639f",
+    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
   ]
 }
 ```
@@ -650,11 +661,15 @@ Subscriber balance and allowance of given address
 ```text
 [
   {
-    "symbol": "LRC",
+    "address": "0xef68e7c694f40c8202821edf525de3782458639f",
     "balance": "0x1326beb03e0a0000",
     "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
   },
-  ...
+  {
+    "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "balance": "0x1326beb03e0a0000",
+    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  }
 ]
 ```
 {% endcode-tabs-item %}
@@ -671,8 +686,13 @@ Subscriber orders of given owner
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "markets": ["LRC-WETH"],
-  "statuses": ["0x0"]
+  "markets": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  },
+  "statuses": [
+    "0x0"
+  ]
 }
 ```
 {% endcode-tabs-item %}
@@ -720,7 +740,12 @@ subscriber trades of given trades
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "markets": ["LRC-WETH"]
+  "markets": [
+    {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
+  ]
 }
 ```
 {% endcode-tabs-item %}
@@ -759,7 +784,14 @@ Subscriber order book of given market
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
-{"level":0,"size":100,"market":"LRC-WETH"}
+{
+  "level": 0,
+  "size": 100,
+  "market": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  }
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -801,7 +833,12 @@ Subscriber ticker
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
-{"market":"LRC-WETH"}
+{
+  "market": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  }
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -836,7 +873,14 @@ Subscriber the transfer
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
-{"tokens":["LRC","WETH"],"type":"0x0","status":"0x0"}
+{
+  "tokens": [
+    "0xef68e7c694f40c8202821edf525de3782458639f",
+    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  ],
+  "type": "income",
+  "status": "succeed"
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -854,8 +898,8 @@ please refer to the **Params** of JSON RPC interface named "get\_transfer"
     "amount": "1000.0000",
     "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
     "time": "0x5c4add07",
-    "status": 0
-  },
+    "status": "succeed"
+    },
   ...
 ]
 ```
