@@ -433,7 +433,7 @@ get the next  nonce of given address
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_transaction_count",
+  "method": "get_nonce",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "tag": "latest"
