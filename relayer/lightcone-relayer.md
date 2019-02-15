@@ -659,18 +659,25 @@ Subscriber balance and allowance of given address
 {% code-tabs %}
 {% code-tabs-item title="Response Exmaple" %}
 ```text
-[
-  {
-    "address": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "balance": "0x1326beb03e0a0000",
-    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-  },
-  {
-    "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "balance": "0x1326beb03e0a0000",
-    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-  }
-]
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  balanceAndAllowances: [
+    {
+      "address": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "balance": "0x1326beb03e0a0000",
+      "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "availableBalance": "0x1326beb03e0a0000",
+      "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+      "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "balance": "0x1326beb03e0a0000",
+      "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "availableBalance": "0x1326beb03e0a0000",
+      "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ]
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
