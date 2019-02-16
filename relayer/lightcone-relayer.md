@@ -579,8 +579,8 @@ The **params** contains the following parameters:
 * type:
   * "0x0"  : eth transfer
   * "0x1"  : erc20 token transfer
-  * "0x2"  : cancel order
-  * "0x3" : ring mined
+  * "0x2"  : ring mined 
+  * "0x3" :  order cancel
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
