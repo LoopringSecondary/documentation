@@ -573,7 +573,7 @@ The **params** contains the following parameters:
 
 * owner: the owner address of transactions to be retrieved
 * status:
-  * "succeed"
+  * "success"
   * "failed"  
   *  "pending" 
 * type:
