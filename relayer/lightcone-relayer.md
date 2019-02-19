@@ -661,22 +661,13 @@ Subscriber balance and allowance of given address
 ```text
 {
   "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  balanceAndAllowances: [
-    {
-      "address": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "balance": "0x1326beb03e0a0000",
-      "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-      "availableBalance": "0x1326beb03e0a0000",
-      "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-    },
-    {
-      "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "balance": "0x1326beb03e0a0000",
-      "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-      "availableBalance": "0x1326beb03e0a0000",
-      "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-    }
-  ]
+  balanceAndAllowance: {
+    "address": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "balance": "0x1326beb03e0a0000",
+    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "availableBalance": "0x1326beb03e0a0000",
+    "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -793,7 +784,6 @@ Subscriber order book of given market
 ```text
 {
   "level": 0,
-  "size": 100,
   "market": {
     "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
     "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
@@ -858,14 +848,20 @@ The request **params** contains the following parameters:
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-    "high" : 30384.2,
-    "low" : 19283.2,
-    "last" : 28002.2,
-    "vol" : 1038,
-    "amount" : 1003839.32,
-    "buy" : 122321,
-    "sell" : 12388,
-    "change" : "50.12%"
+  "market": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  },
+  "ticker": {
+    "high": 30384.2,
+    "low": 19283.2,
+    "last": 28002.2,
+    "vol": 1038,
+    "amount": 1003839.32,
+    "buy": 122321,
+    "sell": 12388,
+    "change": "50.12%"
+  }
 }
 ```
 {% endcode-tabs-item %}
