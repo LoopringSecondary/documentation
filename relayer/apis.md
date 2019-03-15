@@ -91,7 +91,7 @@ All JSON RPC shares the following request parameters:
 {
   "jsonrpc": "2.0",
   "id":1,
-  "result": 1548410119809 // timestamp in milisecond
+  "result": "0x168846f6681" // timestamp in milisecond
 }
 ```
 {% endcode-tabs-item %}
@@ -121,14 +121,33 @@ Get a list of markets supported by the relayer and their metadata.
   "jsonrpc": "2.0",
   "id": 1,
   "result": {
-    "markets" = [{
-      "symbol": "LRC-WETH",
-      "status":"active",
-      "precisionForAmount": 5,
-      "precisionForTotal": 8,
-      "precisionForPrice": 5
-    },
-    ...]
+    "markets"=[
+      {
+        "metadata": {
+          "status": "ACTIVE",
+          "priceDecimals": 5,
+          "orderbookAggLevels": 3,
+          "precisionForAmount": 1,
+          "precisionForTotal": 5,
+          "browsableInWallet": true,
+          "marketPair": {
+            "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+            "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+          },
+          "marketHash": "0x2f424dff26d7f20f088c429075b73a70182d0f5d"
+        },
+        "ticker": {
+          "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+          "exchangeRate": 0.000485,
+          "price": 0.05,
+          "volume24H": 1234.5,
+          "percentChange1H": 5.121,
+          "percentChange24H": 4.567,
+          "percentChange7D": 60.212
+        }
+      }
+    ]
   }
 }
 ```
@@ -140,12 +159,8 @@ Get a list of markets supported by the relayer and their metadata.
 > * **markets**: a list of markets and their metadata.
 >
 > Each market has the following metadata:
->
-> * **symbol**: the id of the market.
-> * **status**: the status of the market, "active" or "suspended"
-> * **precisionFormAmount**:
-> * **precisionForTotal**:
-> * **precisionForPrice**:
+
+> * **status**: the status of the market, "ACTIVE" 、 "READONLY"、"TERMINATED
 
 ### get\_tokens
 
