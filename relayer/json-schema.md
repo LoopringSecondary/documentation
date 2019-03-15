@@ -158,3 +158,46 @@ ring: {
 * fillsAmount: the fills amount in this ring
 * fees ：a list of Trade Fee
 
+## Cancel Orders EIP 712 Schema
+
+```text
+{
+  "types": {
+    "EIP712Domain": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "version",
+        "type": "string"
+      }
+    ],
+    "CancelRequest": [
+      {
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "name": "market",
+        "type": "address"
+      },
+      {
+        "name": "time",
+        "type": "uint"
+      }
+    ],
+    
+  },
+  "primaryType": "CancelRequest",
+  "domain": {
+    "name": "Loopring Protocol",
+    "version": "2"
+  }
+}
+```
+
