@@ -108,11 +108,20 @@ Get a list of markets supported by the relayer and their metadata.
   "jsonrpc": "2.0",
   "id": 1,
   "method": "get_markets",
-  "params": {}
+  "params": {
+    "requireMetadata": true,
+    "requireTicker": true,
+    "quoteCurrencyForTicker": "USD" 
+    "marketPairs": [
+      
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+* currently support for "USD","RMB"
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -158,9 +167,9 @@ Get a list of markets supported by the relayer and their metadata.
 >
 > * **markets**: a list of markets and their metadata.
 >
-> Each market has the following metadata:
+>  Market  status can be the following values:
 
-> * **status**: the status of the market, "ACTIVE" 、 "READONLY"、"TERMINATED
+> * **status**: the status of the market, "ACTIVE" 、 "READONLY"、"TERMINATED"
 
 ### get\_tokens
 
@@ -173,7 +182,15 @@ Get a list of markets supported by the relayer and their metadata.
   "jsonrpc": "2.0",
   "id": 1,
   "method": "get_tokens",
-  "params": {}
+  "params": {
+    "requireMetadata": true,
+    "requireInfo": ture,
+    "requirePrice": true,
+    "quoteCurrencyForPrice": "USD",
+    "tokens": [
+      
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -188,20 +205,40 @@ Get a list of markets supported by the relayer and their metadata.
   "result": {
     "tokens": [
       {
-        "symbol": "LRC",
-        "precision": 5,
-        "decimal": 18,
-        "address": "0xef68e7c694f40c8202821edf525de3782458639f"
-      },
-      {  
-        "symbol": "WETH",
-        "precision": 5,
-        "decimal": 18,
-        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"  
+        "metadata": {
+          "type": "TOKEN_TYPE_ERC20",
+          "status": "VALID",
+          "symbol": "LRC",
+          "name": "Loopring Token",
+          "address": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "unit": "LRC",
+          "decimals": 18,
+          "precision": 6,
+          "burnRate": {
+            "forMarket": 0.5,
+            "forP2P": 0.4
+          }
+        },
+        "info": {
+          symbol: "LRC",
+          circulatingSupply: 800000000,
+          totalSupply: 1400000000,
+          maxSupply: 1400000000,
+          cmcRank: 80,
+          icoRateWithEth: 0.00016,
+          websiteUrl: "www.loopring.io"
+        },
+        "ticker": {
+          token: "0xef68e7c694f40c8202821edf525de3782458639f",
+          price: 0.00048,
+          volume24H: 12000000,
+          percentChange1H: 2.34,
+          percentChange24H: -1.2,
+          percentChange7D: 102.45
+        }
       }
-    ]
+    }
   }
-}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -210,12 +247,11 @@ The **result** object contains the following fields:
 
 > * **tokens**: a list of tokens and their metadata.
 >
-> Each token has the following metadata:
+> Each token contains the following fields:
 >
-> * **symbol**: the symbol of the token.
-> * **precision**
-> * **decimal**
-> * **address**
+> * metadata
+> * info
+> * ticker
 
 ### submit\_order
 
@@ -263,14 +299,14 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
 ```javascript
 {
   "jsonrpc": "2.0",
-  "id":1,
-  "result":"0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9" 
+  "id": 1,
+  "result": {
+    "success": true
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-> * **result**: the hash \(id\) of the order that has been submitted. Please refer to JSON Schema for more information regarding how order hash \(id\) is calculated.
 
 ### cance\_order
 
