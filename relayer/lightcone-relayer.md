@@ -618,11 +618,38 @@ retrieve market trading history
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
-
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "data": [
+      {
+        "data": [
+          1547782995,
+          350600.5,
+          502.7,
+          0.00048,
+          0.00045,
+          0.00049,
+          0.000445
+        ]
+      }
+    ]
+  },
+  "id": 1
+}
 
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+the numbers  stands for  data as the following:
+
+1. starting\_point 
+2. quality amount 
+3. opening\_price 
+4. closing\_price
+5.  highest\_price
+6.  lowest\_price
 
 ## Socket
 
