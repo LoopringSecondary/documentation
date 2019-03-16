@@ -663,11 +663,15 @@ subscribe Params contains paramsForActivities, paramsForOrder, paramsForFills, p
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "addresses": ["0xb94065482ad64d4c2b9252358d746b39e820a582"],
-  "tokens": [
-    "0xef68e7c694f40c8202821edf525de3782458639f",
-    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-  ]
+  "paramsForAccounts": {
+    "addresses": [
+      "0xb94065482ad64d4c2b9252358d746b39e820a582"
+    ],
+    "tokens": [
+      "0xef68e7c694f40c8202821edf525de3782458639f",
+      "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -679,12 +683,14 @@ subscribe Params contains paramsForActivities, paramsForOrder, paramsForFills, p
 {% code-tabs-item title="Response Exmaple" %}
 ```text
 {
-  "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "tokenBalance": {
-    "token": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "balance": "0x1326beb03e0a0000",
-    "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-    "block": 100
+  "account": {
+    "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "tokenBalance": {
+      "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "balance": "0x1326beb03e0a0000",
+      "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "block": 100
+    }
   }
 }
 ```
@@ -699,10 +705,14 @@ Subscriber orders of given addresses and marketPair
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "addresses": ["0xb94065482ad64d4c2b9252358d746b39e820a582"],
-  "marketPair": {
-    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  "paramsForOrders": {
+    "addresses": [
+      "0xb94065482ad64d4c2b9252358d746b39e820a582"
+    ],
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
   }
 }
 ```
@@ -715,23 +725,25 @@ About the request **params,** please refer to the JOSN RPC interface named "get\
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "version": "0x0",
-  "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-  "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-  "amountS": "0xde0b6b3a7640000",
-  "validSince": "0x5c4b0cb3",
-  "amountB": "0x3635c9adc5dea00000",
-  "params": {
-    "validUnit": "0x5c4cacb3",
-    "allOrNone": "0x0",
-    "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
-  },
-  "feeParams": {
-    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "amountFee": "0xde0b6b3a7640000"
-  },
-  "signType": "0x0"
+  "order": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "version": "0x0",
+    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountS": "0xde0b6b3a7640000",
+    "validSince": "0x5c4b0cb3",
+    "amountB": "0x3635c9adc5dea00000",
+    "params": {
+      "validUnit": "0x5c4cacb3",
+      "allOrNone": "0x0",
+      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
+    },
+    "feeParams": {
+      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountFee": "0xde0b6b3a7640000"
+    },
+    "signType": "0x0"
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -747,10 +759,12 @@ subscriber fills of given address and market
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "marketPair": {
-    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  "paramsForFills": {
+    "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
   }
 }
 ```
@@ -761,31 +775,33 @@ subscriber fills of given address and market
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "orderHash": "",
-  "ringHash": "",
-  "ringIndex": "0x1",
-  "fillIndex": "0x0",
-  "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
-  "amountS": "0x8ac7230489e80000",
-  "amountB": "0xde0b6b3a7640000",
-  "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
-  "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-  "marketKey": "",
-  "split": "0xde0b6b3a7640000",
-  "fee": {
-    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "amountFee": "0x2",
-    "feeAmountS": "0x0",
-    "feeAmountB": "0x0",
-    "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "waiveFeePercentage": "0x0",
-    "walletSplitPercentage": "0x28"
-  },
-  "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "blockHeight": "0x8",
-  "blockTimestamp": "0x5c4add07"
+  "fill": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "orderHash": "",
+    "ringHash": "",
+    "ringIndex": "0x1",
+    "fillIndex": "0x0",
+    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+    "amountS": "0x8ac7230489e80000",
+    "amountB": "0xde0b6b3a7640000",
+    "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "marketKey": "",
+    "split": "0xde0b6b3a7640000",
+    "fee": {
+      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountFee": "0x2",
+      "feeAmountS": "0x0",
+      "feeAmountB": "0x0",
+      "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "waiveFeePercentage": "0x0",
+      "walletSplitPercentage": "0x28"
+    },
+    "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "blockHeight": "0x8",
+    "blockTimestamp": "0x5c4add07"
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -799,10 +815,12 @@ Subscribe order book of given market
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "level": 0,
-  "marketPair": {
-    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  "paramsForOrderbook": {
+    "level": 0,
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
   }
 }
 ```
@@ -813,23 +831,25 @@ Subscribe order book of given market
 {% code-tabs-item title="Response Exmaple" %}
 ```text
 {
-  "lastPrice": 0.0007,
-  "sells": [
-    {
-      "amount": 1000,
-      "price": 0.0007,
-      "total": 0.7
-    },
-    ...
-  ],
-  "buys": [
-    {
-      "amount": 1000,
-      "price": 0.00069,
-      "total": 0.69
-    },
-    ...
-  ]
+  "orderbook": {
+    "lastPrice": 0.0007,
+    "sells": [
+      {
+        "amount": 1000,
+        "price": 0.0007,
+        "total": 0.7
+      },
+      ...
+    ],
+    "buys": [
+      {
+        "amount": 1000,
+        "price": 0.00069,
+        "total": 0.69
+      },
+      ...
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -843,9 +863,11 @@ Subscribe for given market internal ticker
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "marketpair": {
-    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  "paramsForInternalTickers": {
+    "marketpair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
   }
 }
 ```
@@ -856,62 +878,98 @@ Subscribe for given market internal ticker
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "ticker": {
+  "internalTicker": {
     "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
     "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "high": 30384.2,
-    "low": 19283.2,
-    "last": 28002.2,
-    "vol": 1038,
-    "amount": 1003839.32,
-    "buy": 122321,
-    "sell": 12388,
-    "change": "50.12%"
+    "exchangeRate": 0.000485,
+    "price": 0.05,
+    "volume24H": 1234.5,
+    "percentChange1H": 5.121,
+    "percentChange24H": 4.567,
+    "percentChange7D": 60.212
   }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-**transfers**
+So far just support for price, base token and quote token
 
-Subscriber the transfer  
+### paramsForActivities
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "type": "income",
-  "tokens": [
-    "0xef68e7c694f40c8202821edf525de3782458639f",
-    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-  ]
+  "paramsForActivities": {
+    addresses: [
+      "0xb94065482ad64d4c2b9252358d746b39e820a582"
+    ]
+  }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-please refer to the **Params** of JSON RPC interface named "get\_transfer"
-
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
-[
-  {
-    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
-    "token": "LRC",
-    "amount": "1000.0000",
-    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
-    "time": "0x5c4add07",
-    "status": "succeed"
-    },
-  ...
-]
+{
+  "activity": {
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "block": 20,
+    "txHash": "0x3c0c589480338327df0a941231df0b0267cf22dd9973770994df09e5f4965873",
+    "activityType": "TOKEN_TRANSFER_IN",
+    "timestamp": 1547782995,
+    "fiatValue": 500,
+    "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "from": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+    "nonce": 15,
+    "txStatus": "TX_STATUS_PENDING",
+    "detail": {
+      "tokenTransfer": {
+        "address": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+        "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amount": "0x3635c9adc5dea00000"
+      }
+    }
+  }
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-please refer to the **result** of the JOSN RPC interface named "get\_transfer"
+### paramsForMetadata
+
+Subscriber the metadata updating including token metadata, market metadata, token info and ticker   
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "paramsForMetadata":{
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "metadataChanged": {
+    "tokenMetadataChanged": false,
+    "tokenInfoChanged": false,
+    "marketMetadataChanged": false,
+    "tickerChanged": true
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### paramsForNews
+
+So far not support
 
