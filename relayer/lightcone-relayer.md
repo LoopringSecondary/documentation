@@ -653,13 +653,17 @@ the numbers  stands for  data as the following:
 
 ## Socket
 
-Subscriber balance and allowance of given address
+Lightcone socket support for subscribing activity, orders, fills, order book, metadata, internal ticker,  accounts and news.
+
+subscribe Params contains paramsForActivities, paramsForOrder, paramsForFills, paramsForOrderbook, paramsForMetadata, paramsForInternalTickers, paramsForAccounts, paramsForNews
+
+### paramsForAccounts
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "addresses": ["0xb94065482ad64d4c2b9252358d746b39e820a582"],
   "tokens": [
     "0xef68e7c694f40c8202821edf525de3782458639f",
     "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
@@ -675,37 +679,31 @@ Subscriber balance and allowance of given address
 {% code-tabs-item title="Response Exmaple" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  balanceAndAllowance: {
-    "address": "0xef68e7c694f40c8202821edf525de3782458639f",
+  "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "tokenBalance": {
+    "token": "0xef68e7c694f40c8202821edf525de3782458639f",
     "balance": "0x1326beb03e0a0000",
     "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-    "availableBalance": "0x1326beb03e0a0000",
-    "availableAllowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    "block": 100
   }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-About the **result** please refer to the JSON RPC interface named "get\_balances"
+### **paramsForOrders**
 
-### **orders**
-
-Subscriber orders of given owner
+Subscriber orders of given addresses and marketPair
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "markets": {
+  "addresses": ["0xb94065482ad64d4c2b9252358d746b39e820a582"],
+  "marketPair": {
     "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
     "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-  },
-  "statuses": [
-    "0x0"
-  ]
+  }
 }
 ```
 {% endcode-tabs-item %}
@@ -716,90 +714,41 @@ About the request **params,** please refer to the JOSN RPC interface named "get\
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
-  [
-  {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "version": "0x0",
-    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "amountS": "0xde0b6b3a7640000",
-    "validSince": "0x5c4b0cb3",
-    "amountB": "0x3635c9adc5dea00000",
-    "params": {
-      "validUnit": "0x5c4cacb3",
-      "allOrNone": "0x0",
-      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
-    },
-    "feeParams": {
-      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "amountFee": "0xde0b6b3a7640000"
-    },
-    "signType": "0x0"
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "version": "0x0",
+  "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+  "amountS": "0xde0b6b3a7640000",
+  "validSince": "0x5c4b0cb3",
+  "amountB": "0x3635c9adc5dea00000",
+  "params": {
+    "validUnit": "0x5c4cacb3",
+    "allOrNone": "0x0",
+    "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
   },
-  ...
-]
+  "feeParams": {
+    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountFee": "0xde0b6b3a7640000"
+  },
+  "signType": "0x0"
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 The **result** is a list of orders.  Please refer to the [JSON Schema](https://docs.loopring.org/~/drafts/-LXHyMXc89BbDx77pi4r/primary/relayer/json-schema#order-ding-dan-jie-gou) for the definition of a Loopring order.
 
-### trades
+### paramsForFills
 
-subscriber trades of given trades
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```text
-{
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "markets": [
-    {
-      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    }
-  ]
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-About the request **params**, please refer to the JSON RPC interface named "get\_trade"
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```text
-[
-  {
-    "orderHash": "",
-    "ringHash": "",
-    "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "amountS": "0xa",
-    "amountB": "0x1",
-    "amountFee": "0x2",
-    "time": "0x5c4add07",
-    "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73"
-  },
-  ...
-]
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-About the detail of the result , please refer to the JOSN RPC interface named "get\_trade"
-
-### order\_book
-
-Subscriber order book of given market
+subscriber fills of given address and market
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "level": 0,
-  "market": {
+  "address": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "marketPair": {
     "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
     "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
   }
@@ -808,7 +757,57 @@ Subscriber order book of given market
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-About the request **params** object , please refer to JSON RPC interface named:"get\_order\_book"
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "orderHash": "",
+  "ringHash": "",
+  "ringIndex": "0x1",
+  "fillIndex": "0x0",
+  "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+  "amountS": "0x8ac7230489e80000",
+  "amountB": "0xde0b6b3a7640000",
+  "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+  "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  "marketKey": "",
+  "split": "0xde0b6b3a7640000",
+  "fee": {
+    "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "amountFee": "0x2",
+    "feeAmountS": "0x0",
+    "feeAmountB": "0x0",
+    "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "waiveFeePercentage": "0x0",
+    "walletSplitPercentage": "0x28"
+  },
+  "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "blockHeight": "0x8",
+  "blockTimestamp": "0x5c4add07"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### paramsForOrderbook
+
+Subscribe order book of given market
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "level": 0,
+  "marketPair": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% code-tabs %}
 {% code-tabs-item title="Response Exmaple" %}
@@ -836,17 +835,15 @@ About the request **params** object , please refer to JSON RPC interface named:"
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-About the detail of the result , please refer to the JOSN RPC interface named "get\_order\_book"
+### paramsForInternalTickers
 
-### **ticker**
-
-Subscriber ticker
+Subscribe for given market internal ticker
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
-  "market": {
+  "marketpair": {
     "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
     "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
   }
@@ -855,19 +852,13 @@ Subscriber ticker
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The request **params** contains the following parameters:
-
-* market : the market symbol of ticker to be retrieved
-
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "market": {
-    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-  },
   "ticker": {
+    "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+    "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
     "high": 30384.2,
     "low": 19283.2,
     "last": 28002.2,
@@ -881,8 +872,6 @@ The request **params** contains the following parameters:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-please refer to the result of JSON RPC interface named "get\_ticker"
 
 **transfers**
 
@@ -925,48 +914,4 @@ please refer to the **Params** of JSON RPC interface named "get\_transfer"
 {% endcode-tabs %}
 
 please refer to the **result** of the JOSN RPC interface named "get\_transfer"
-
-### transactions
-
-Subscriber  the ethereum transactions
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```text
-{
-  "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-  "status": "succeed",
-  "type": "0x0"
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-about the detail request parameter, please refer to the JSON RPC interface named "get\_transaction"
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```text
-[
-  {
-    "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
-    "value": "1000.0000",
-    "gasPrice": "0x2540be400",
-    "gasLimit": "0x5208",
-    "gasUsed": "0x5208",
-    "data": "0x",
-    "nonce": "0x9",
-    "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
-    "blockNum": "0x6cc501",
-    "time": "0x5c4add07",
-    "status": "succeed"
-  },
-  ...
-]
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-About the detail of  the result,  please refer to the JSON RPC interface named "get\_transaction"
 
