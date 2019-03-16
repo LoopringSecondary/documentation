@@ -246,8 +246,8 @@ The **params** object support the following parameters:
         },
         "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-        "blockHeight": "0x8",
-        "blockTimestamp": "0x5c4add07",
+        "blockHeight": 24,
+        "blockTimestamp": 1547782995,
         
       },
       ...
@@ -317,8 +317,8 @@ query the latest 20 fills
         },
         "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-        "blockHeight": "0x8",
-        "blockTimestamp": "0x5c4add07"
+        "blockHeight": 24,
+        "blockTimestamp": 1547782995
       },
       ...
     ]
@@ -365,30 +365,32 @@ The **params** object support the following parameters:
   "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "lastPrice": 0.0007,
-    "sells": [
-      {
-        "amount": 1000,
-        "price": 0.0007,
-        "total": 0.7
-      },
-      ...
-    ],
-    "buys": [
-      {
-        "amount": 1000,
-        "price": 0.00069,
-        "total": 0.69
-      },
-      ...
-    ]
+    "orderbook": {
+      "lastPrice": 0.0007,
+      "sells": [
+        {
+          "amount": 1000,
+          "price": 0.0007,
+          "total": 0.7
+        },
+        ...
+      ],
+      "buys": [
+        {
+          "amount": 1000,
+          "price": 0.00069,
+          "total": 0.69
+        },
+        ...
+      ]
+    }
   }
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The **result** object contains the following fields:
+The orderbook object contains the following fields:
 
 * **lastPrice**: the latest trade price
 * **buys**:  a list of buys.
@@ -457,8 +459,8 @@ The **Params** supports the following parameters:
           "walletSplitPercentage": "0x28"
         }
       ],
-      blockHeight: "0x8",
-      blockTimestamp: "0x5c4add07"
+      blockHeight: 24,
+      blockTimestamp: 1547782995
     ]
   }
 }
@@ -799,8 +801,8 @@ subscriber fills of given address and market
     },
     "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "blockHeight": "0x8",
-    "blockTimestamp": "0x5c4add07"
+    "blockHeight": 24,
+    "blockTimestamp": 1547782995
   }
 }
 ```
