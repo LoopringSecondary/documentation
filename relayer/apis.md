@@ -220,21 +220,21 @@ Get a list of markets supported by the relayer and their metadata.
           }
         },
         "info": {
-          symbol: "LRC",
-          circulatingSupply: 800000000,
-          totalSupply: 1400000000,
-          maxSupply: 1400000000,
-          cmcRank: 80,
-          icoRateWithEth: 0.00016,
-          websiteUrl: "www.loopring.io"
+          "symbol": "LRC",
+          "circulatingSupply": 800000000,
+          "totalSupply": 1400000000,
+          "maxSupply": 1400000000,
+          "cmcRank": 80,
+          "icoRateWithEth": 0.00016,
+          "websiteUrl": "www.loopring.io"
         },
         "ticker": {
-          token: "0xef68e7c694f40c8202821edf525de3782458639f",
-          price: 0.00048,
-          volume24H: 12000000,
-          percentChange1H: 2.34,
-          percentChange24H: -1.2,
-          percentChange7D: 102.45
+          "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "price": 0.00048,
+          "volume24H": 12000000,
+          "percentChange1H": 2.34,
+          "percentChange24H": -1.2,
+          "percentChange7D": 102.45
         }
       }
     }
@@ -337,7 +337,7 @@ Cancel  order for a given id, or orders for given market or all orders of given 
 > The **params** object supports the following parameters:
 >
 > * **id:** the order hash of the order to cancel
-> * **market**: The target market to cancel all orders. the market id must be in uppercase.
+> * **marketPair**: The target market to cancel all orders. the market id must be in uppercase.
 > * **owner**: the address whose orders will be cancelled.
 > * **time**: required, the current timestamp.
 > * **sig**: required, the signature  using this order's owner private key in EIP 712  way. Please refer to JSON Schema for how this request is signed.
@@ -373,16 +373,19 @@ Get a list of orders.
   "method": "get_orders",
   "params": {
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "market": {
-        "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-      },
     "statuses": [
-      "0x0"
+      
     ],
-    "sort":"asc",
-    "pageNum": 1,
-    "pageSize": 50
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    },
+    "side": "SELL",
+    "sort": "ASC",
+    "paging": {
+      "skip": 100,
+      "size": 20
+    }
   }
 }
 ```
@@ -392,11 +395,11 @@ Get a list of orders.
 > The **params** object supports the following parameters:
 >
 > * **owner**: required, the owing address of orders.
-> * **market**: optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+> * **marketPair**: optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
 > * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.
-> * sort: "asc" or "desc"
-> * **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
-> * **pageSize**: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
+> * **side**: can be "sell", ''buy" and "both".default is "both"
+> * **sort**: "asc" or "desc",default is "asc"
+> * **paging**: default is skip =0, size =20. if skip is set value, size must be set value.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -405,9 +408,7 @@ Get a list of orders.
   "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "pageNum": 1,
-    "pageSize": 50,
-    "total": 60,
+    "total": 200,
     "orders": [
       {
         "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -437,9 +438,7 @@ Get a list of orders.
 {% endcode-tabs %}
 
 > The **result** object contains the following fields:
->
-> * **pageNum**: the current page number \(same as in the request\).
-> * **pageSize**: the size of the page \(same as in the request\).
+
 > * **total**: the total number of orders available.
 > * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
 >
