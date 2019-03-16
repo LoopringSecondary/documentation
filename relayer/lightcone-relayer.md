@@ -189,7 +189,7 @@ get the given owner's fill record according to given query conditions.
   "jsonrpc": "2.0",
   "method": "get_user_fills",
   "params": {
-    "owner": "",
+    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "marketPair": {
       "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
       "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
@@ -226,8 +226,8 @@ The **params** object support the following parameters:
         "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "orderHash": "",
         "ringHash": "",
-        "ringIndex": "0x1",
-        "fillIndex": "0x0",
+        "ringIndex": 1,
+        "fillIndex": 0,
         "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
         "amountS": "0x8ac7230489e80000",
         "amountB": "0xde0b6b3a7640000",
@@ -297,8 +297,8 @@ query the latest 20 fills
         "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "orderHash": "",
         "ringHash": "",
-        "ringIndex": "0x1",
-        "fillIndex": "0x0",
+        "ringIndex": 1,
+        "fillIndex": 0,
         "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
         "amountS": "0x8ac7230489e80000",
         "amountB": "0xde0b6b3a7640000",
@@ -444,8 +444,8 @@ The **Params** supports the following parameters:
     "total": 40,
     "rings": [
       "ringHash": "",
-      "ringIndex": "0x1",
-      "fillsAmount": "0x2",
+      "ringIndex": 1,
+      "fillsAmount": 2,
       "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
       "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
       "fees": [
@@ -736,15 +736,14 @@ About the request **params,** please refer to the JOSN RPC interface named "get\
     "validSince": "0x5c4b0cb3",
     "amountB": "0x3635c9adc5dea00000",
     "params": {
-      "validUnit": "0x5c4cacb3",
+      "validUntil": "0x5c4cacb3",
       "allOrNone": "0x0",
       "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
     },
     "feeParams": {
       "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
       "amountFee": "0xde0b6b3a7640000"
-    },
-    "signType": "0x0"
+    }
   }
 }
 ```
@@ -781,8 +780,8 @@ subscriber fills of given address and market
     "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "orderHash": "",
     "ringHash": "",
-    "ringIndex": "0x1",
-    "fillIndex": "0x0",
+    "ringIndex": 1,
+    "fillIndex": 0,
     "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
     "amountS": "0x8ac7230489e80000",
     "amountB": "0xde0b6b3a7640000",
