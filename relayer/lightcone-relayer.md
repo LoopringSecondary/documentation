@@ -71,18 +71,20 @@ All JSON RPC shares the following request parameters:
 
 ## Lightcone's Additional JSON RPC
 
-### get\_account
+### get\_accounts
 
-get the balances an allowances of given tokens and owner
+get the balances an allowances of given tokens and addresses
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_account",
+  "method": "get_accounts",
   "params": {
-    "address": ="0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "addresses": [
+      "0xb94065482ad64d4c2b9252358d746b39e820a582"
+    ],
     "tokens": [
       
     ],
@@ -96,7 +98,7 @@ get the balances an allowances of given tokens and owner
 
 The params object support the following parameters:
 
-* address : the owner address 
+* addresses : the owner addresses 
 * tokens : a list of token addresses
 * allTokens: if query all the tokens lightcone supports
 
@@ -106,27 +108,29 @@ The params object support the following parameters:
 {
   "jsonrpc": "2.0",
   "result": {
-    "accountBalance": {
-      "address": "0xe20cf871f1646d8651ee9dc95aab1d93160b3467",
-      "tokenBalanceMap": {
-        "0x97241525fe425c90ebe5a41127816dcfa5954b06": {
-          "token": "0x97241525fe425c90ebe5a41127816dcfa5954b06",
-          "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-        },
-        "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc": {
-          "token": "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc",
-          "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-          "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    "accountBalances": {
+      "0xe20cf871f1646d8651ee9dc95aab1d93160b3467": {
+        "address": "0xe20cf871f1646d8651ee9dc95aab1d93160b3467",
+        "tokenBalanceMap": {
+          "0x97241525fe425c90ebe5a41127816dcfa5954b06": {
+            "token": "0x97241525fe425c90ebe5a41127816dcfa5954b06",
+            "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc": {
+            "token": "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc",
+            "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
         }
       }
     }
   },
-  "id": "1"
+  "id": 1
 }
 ```
 {% endcode-tabs-item %}
@@ -134,14 +138,45 @@ The params object support the following parameters:
 
 The **result** object contains the following fields:
 
-> * **owner** : the given owner address .
-> * **balanceAndAllowances**: a list of given owner's balances and allowances
+> * **accountBalances**
 >
-> each balanceAndAllowance contains the following fields:
+> each accountBalance contains the following fields:
 >
-> * **address** : token address
-> * **balance** : balance  in hex string
-> * **allowance**: allowance in hex string
+> * **address** : owner address
+> * **tokenBalanceMap:** map of token balance map
+
+### get\_account\_nonce
+
+get the pending nonce of given address
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_trades",
+  "params": {
+    "address": "0xb94065482ad64d4c2b9252358d746b39e820a582"
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "nonce": 44
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### get\_trades
 
@@ -303,64 +338,6 @@ each buy or sell contains  the following fields:
 * **price**
 * **total**
 
-### get\_ticker
-
-get the ticker of given market 
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```text
-{
-  "jsonrpc": "2.0",
-  "method": "get_tikcer",
-  "params": {
-    "market": {
-      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    }
-  },
-  "id": 1
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-The **params** contains the following parameters:
-
-* market : the market symbol of ticker to be retrieved
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```text
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "high": 30384.2,
-    "low": 19283.2,
-    "last": 28002.2,
-    "vol": 1038,
-    "amount": 1003839.32,
-    "buy": 122321,
-    "sell": 12388,
-    "change": "50.12%"
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-The **result**  contains the following fields:
-
-* high:  the highest price for past 24 hours
-* low: the lowest price for past 24 hours
-* last: the latest trade price
-* vol: the volume for past 24 hours
-* amount: the amount of base token traded
-* buy: the total buy amount
-* sell: the total sell amount
-* change: the change rate for past 24 hours
-
 ### get\_rings
 
 retrieve rings
@@ -372,11 +349,14 @@ retrieve rings
   "jsonrpc": "2.0",
   "method": "get_rings",
   "params": {
-    "ringHash": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "ringIndex": "0x0",
-    "sort": "asc",
-    "pageNum": 1,
-    "pageSize": 50
+    "sort": "ASC",
+    "paging": {
+      "skip": 300,
+      "size": 50
+    },
+    "filter": {
+      "ringIndex": 30
+    }
   },
   "id": 1
 }
@@ -386,19 +366,17 @@ retrieve rings
 
 The **Params** supports the following parameters:
 
-* **ringHash**: optional,  hash of the ring to be retrieved
-* **ringIndex**: optional,  index of the ring to be retrieved
+* **filter**
+  * **ringHash**: optional,  hash of the ring to be retrieved
+  * **ringIndex**: optional,  index of the ring to be retrieved
 * **sort**: optional, can be "asc" or "desc", default is "asc"
-* **pageNum:** optional, the page number. The first page is 1, not 0, defaults to 1.
-*  **pageSize :** optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20get\_transaction\_count
+* **paging**
 
 ```text
 {
   "jsonrpc": "2.0",
   "id": 1,
   "result": {
-    "pageNum": 1,
-    "pageSize": 50,
     "total": 40,
     "rings": [
       "ringHash": "",
@@ -426,24 +404,26 @@ The **Params** supports the following parameters:
 
 **Result** contains the following fields :
 
-* pageNum
-* pageSize
-* total
-* rings: a list of rings. Please refer to JSON Schema for more information regarding the [ring structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#ring-structure)
+* **total**
+* **rings**: a list of rings. Please refer to JSON Schema for more information regarding the [ring structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#ring-structure)
 
-### get\_nonce
+### get\_activities
 
-get the next  nonce of given address
+get the activity records of given owner and token
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_nonce",
+  "method": "get_activities",
   "params": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "tag": "latest"
+    owner: "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    token: "0xef68e7c694f40c8202821edf525de3782458639f",
+    paging: {
+      "cursor": 100,
+      "size": 50
+    }
   },
   "id": 1
 }
@@ -453,85 +433,39 @@ get the next  nonce of given address
 
 The **params** contains the following parameters:
 
-* owner:  the address of transaction count to be retrieved.
-* tag:  
-  * "latest" :  only contains the transactions only have mined in blocks
-  * "pending":  also contains pending transactions
+* **owner** 
+* **token**  token address 
+* **paging**
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "id":1,
-  "jsonrpc": "2.0",
-  "result": "0x10" // 16
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-**get\_transfers**
-
-get the transfer record of given owner
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```text
-{
-  "jsonrpc": "2.0",
-  "method": "get_transfers",
-  "params": {
-    "tokens": [
-      "0xef68e7c694f40c8202821edf525de3782458639f",
-      "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    ],
-    "type": "income",
-    "status": "succeed",
-    "pageNum": 1,
-    "pageSize": 50
-  },
-  "id": 1
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-The **params** contains the following parameters:
-
-* tokens: a list of token address
-* type
-  *  "income" 
-  *  "outcome" 
-* status
-  * "succeed" 
-  * "failed"  
-  *  "pending" 
-* pageNum: optional, the page number. The first page is 1, not 0, defaults to 1.
-* pageSize: optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```text
-{
-  "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "pageNum": 1,
-    "pageSize": 50,
-    "total": 60",
-    "tranfers": [
+    "activities": [
       {
-        "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-        "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
-        "token": "LRC",
-        "amount": "1000.0000",
-        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e895ee5e73",
-        "time": "0x5c4add07",
-        "status": "succeed"
-      },
-      ...
+        "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "block": 20,
+        "txHash": "0x3c0c589480338327df0a941231df0b0267cf22dd9973770994df09e5f4965873",
+        "activityType": "TOKEN_TRANSFER_IN",
+        "timestamp": 1547782995,
+        "fiatValue": 500,
+        "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "from": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+        "nonce": 15,
+        "txStatus": "TX_STATUS_PENDING",
+        "detail": {
+        "tokenTransfer":{
+          "address": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
+          "token": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amount": "0x3635c9adc5dea00000"
+          }
+        }
+      }
     ]
-  }
+  },
+  "id": 1
 }
 ```
 {% endcode-tabs-item %}
@@ -539,111 +473,61 @@ The **params** contains the following parameters:
 
 The **result** contains the following result:
 
-* transfers :  a list of  transfers. 
+* activities :  a list of  activities. 
 
-Each transfer contains the following result:
+Each activity contains the following result:
 
-* from:  the sender of transfer
-* to: the receiver of transfer
+* owner: the owner of the this activity
+* block: block number 
+* activityType: can be the following values:
+  * ETHER\_TRANSFER\_OUT
+  * ETHER\_TRANSFER\_IN 
+  * ETHER\_WRAP
+  * ETHER\_UNWRAP 
+  * TOKEN\_TRANSFER\_OUT 
+  * TOKEN\_TRANSFER\_IN 
+  * TOKEN\_AUTH 
+  * TRADE\_SELL 
+  * TRADE\_BUY 
+  * ORDER\_CANCEL 
+  * ORDER\_SUBMIT
+* timestamp : block time
+* fiatValue
 * token: token that the sender sends to the receiver
-* amount: the amount that the sender sends to the receiver
-* txHash:  tx hash 
-* time : block time
-* status: the status of the transaction 
+* nonce:  the transaction nonce
+* txStatus: the status of the transaction, can be the following values:
+  *  tx\_status\_pending
+  *  tx\_status\_success
+  *  tx\_status\_failed
+* detail: according to activityType and can be the types
+  * EtherTransferSocket ****
+    * address 
+    * amount
+  * EtherConversion
+    * amount
+  * TokenTransfer
+    * address // to or from
+    * token
+    * amount
+  * TokenAuth
+    * token
+    * target 
+    * amount
+  * Trade
+    * address
+    * tokenBase
+    * tokenQuote
+    * price
+    * amountBase
+    * amountQuote
+    * isP2p
+  * OrderCancellation
+    * orderIds
+    * cutOff
+    * marketPair
+    * broker
 
-**get\_transactions**
-
-get the transactions of given address
-
-{% code-tabs %}
-{% code-tabs-item title="Request Example" %}
-```text
-{
-  "jsonrpc": "2.0",
-  "method": "get_transactions",
-  "params": [
-    {
-      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "status": "succeed",
-      "type": "0x0",
-      "pageNum": 1,
-      "pageSize": 50
-    }
-  ],
-  "id": 1
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-The **params** contains the following parameters:
-
-* owner: the owner address of transactions to be retrieved
-* status:
-  * "success"
-  * "failed"  
-  *  "pending" 
-* type:
-  * "0x0"  : eth transfer
-  * "0x1"  : erc20 token transfer
-  * "0x2"  : ring mined 
-  * "0x3" :  order cancel
-
-{% code-tabs %}
-{% code-tabs-item title="Response Example" %}
-```text
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": {
-    "pageNum": 1,
-    "pageSize": 50,
-    "total": 60,
-    "transctions": [
-      {
-        "from": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-        "to": "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b",
-        "value": "1000.0000",
-        "gasPrice": "0x2540be400",
-        "gasLimit": "0x5208",
-        "gasUsed": "0x5208",
-        "data": "0x",
-        "nonce": "0x9",
-        "hash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
-        "blockNum": "0x6cc501",
-        "time": "0x5c4add07",
-        "status": 0      
-        },
-      ...
-    ]
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-The **result** contains the following fields:
-
-* transactions: a list of transactions. 
-
-each transaction contained the following fields:
-
-* from : the sender address of the transaction.
-* to : the receiver address of the transaction
-* value: the ethereum transaction value.
-* gasPrice: the ethereum transaction gas price
-* gasLimit: the ethereum transaction gas limit
-* gasUsed: the actual gas that used
-* data : ethereum transaction input
-* nonce:  the ethereum transaction nonce
-* hash: transaction hash
-* blockNum: the blockNum that the transaction mined in
-* time : the block time
-* status
-
-## Socket 
-
-### balances
+## Socket
 
 Subscriber balance and allowance of given address
 
