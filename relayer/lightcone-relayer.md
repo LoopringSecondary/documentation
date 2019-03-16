@@ -178,25 +178,27 @@ get the pending nonce of given address
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### get\_trades
+### get\_user\_fills
 
-get the given owner's trade record according to given query conditions.
+get the given owner's fill record according to given query conditions.
 
 {% code-tabs %}
 {% code-tabs-item title="Request Example" %}
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_trades",
+  "method": "get_user_fills",
   "params": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "markets": {
-        "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-      },
-    "sort":"asc",
-    "pageNum": 1,
-    "pageSize": 50
+    "owner": "",
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    },
+    "sort": "ASC",
+    "paging": {
+      "skip": 0,
+      "size": 50
+    }
   },
   "id": 1
 }
@@ -207,10 +209,9 @@ get the given owner's trade record according to given query conditions.
 The **params** object support the following parameters:
 
 * **owner** :  owner address
-* **market**:   optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
+* **marketPair**:   optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
 * **sort**: "asc" or "desc".
-* **pageNum**: optional, the page number. The first page is 1, not 0, defaults to 1.
-* **pageSize** : optional, the number of orders per page, must be in the range of 10-100, inclusive. Defaults to 20.
+* **paging**
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -219,10 +220,8 @@ The **params** object support the following parameters:
   "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "pageNum": 1,
-    "pageSize": 50,
     "total": 60,
-    "trades": [
+    "fills": [
       {
         "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "orderHash": "",
@@ -261,10 +260,73 @@ The **params** object support the following parameters:
 
 The **result** object contains the following fields:
 
-* **pageNum**
-* **pageSize**
 * **total**
-* **trades**: a list of trades.  Please refer to JSON Schema for more information regarding the [trade structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#trade-structure)
+* **fills**: a list of trades.  Please refer to JSON Schema for more information regarding the [trade structure ](https://docs.loopring.org/~/drafts/-LXSU8n477Z_LHmNNqUj/primary/relayer/json-schema#trade-structure)
+
+### get\_market\_fills
+
+query the latest 20 fills 
+
+{% code-tabs %}
+{% code-tabs-item title="Request  Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_market_fills",
+  "params": {
+    "marketPair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    }
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "fills": [
+      {
+        "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "orderHash": "",
+        "ringHash": "",
+        "ringIndex": "0x1",
+        "fillIndex": "0x0",
+        "txHash": "0x9ab523ac966a375f02c5b22e275a6e4c9c621f83881650587bc331e95ee5e73",
+        "amountS": "0x8ac7230489e80000",
+        "amountB": "0xde0b6b3a7640000",
+        "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "marketKey": "",
+        "split": "0xde0b6b3a7640000",
+        "fee": {
+          "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amountFee": "0x2",
+          "feeAmountS": "0x0",
+          "feeAmountB": "0x0",
+          "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+          "waiveFeePercentage": "0x0",
+          "walletSplitPercentage": "0x28"
+        },
+        "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "blockHeight": "0x8",
+        "blockTimestamp": "0x5c4add07"
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### get\_order\_book
 
@@ -279,7 +341,7 @@ get order book of given market
   "params": {
     "level": 0,
     "size": 100,
-    "market": {
+    "marketPair": {
       "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
       "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     }
@@ -294,7 +356,7 @@ The **params** object support the following parameters:
 
 * **level** : the precision level of order book.
 * **size** : the max size of each sells and buys.
-* **market**: market symbol of order book to be retrieved.
+* **marketPair**: market symbol of order book to be retrieved.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -526,6 +588,41 @@ Each activity contains the following result:
     * cutOff
     * marketPair
     * broker
+
+### get\_market\_history
+
+retrieve market trading history
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_market_history",
+  "params": {
+    "marketpair": {
+      "baseToken": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "quoteToken": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    },
+    "interval": "OHLC_INTERVAL_ONE_WEEK",
+    "beginTime": 1547782995,
+    "endTime": 1552721131
+  },
+  "id": 1
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Socket
 
