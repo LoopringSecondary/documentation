@@ -71,7 +71,7 @@ All JSON RPC shares the following request parameters:
 
 ## Lightcone's Additional JSON RPC
 
-### get\_balances
+### get\_account
 
 get the balances an allowances of given tokens and owner
 
@@ -80,13 +80,13 @@ get the balances an allowances of given tokens and owner
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_balances",
+  "method": "get_account",
   "params": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+    "address": ="0xb94065482ad64d4c2b9252358d746b39e820a582",
     "tokens": [
-      "0xef68e7c694f40c8202821edf525de3782458639f",
-      "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    ]
+      
+    ],
+    "allTokens": true
   },
   "id": 1
 }
@@ -96,31 +96,38 @@ get the balances an allowances of given tokens and owner
 
 The params object support the following parameters:
 
-* owner : the owner address 
+* address : the owner address 
 * tokens : a list of token addresses
+* allTokens: if query all the tokens lightcone supports
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
 ```text
 {
-  "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "balanceAndAllowances": [
-      {
-        "address": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "balance": "0x1326beb03e0a0000",
-        "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-      },
-       {
-        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "balance": "0x1326beb03e0a0000",
-        "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-      },
-      ...
-    ]
-  }
+    "accountBalance": {
+      "address": "0xe20cf871f1646d8651ee9dc95aab1d93160b3467",
+      "tokenBalanceMap": {
+        "0x97241525fe425c90ebe5a41127816dcfa5954b06": {
+          "token": "0x97241525fe425c90ebe5a41127816dcfa5954b06",
+          "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        },
+        "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc": {
+          "token": "0x7cb592d18d0c49751ba5fce76c1aec5bdd8941fc",
+          "balance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "allowance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "availableBalance": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "availableAlloawnce": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      }
+    }
+  },
+  "id": "1"
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
