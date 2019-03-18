@@ -647,11 +647,12 @@ retrieve market trading history
 the numbers  stands for  data as the following:
 
 1. starting\_point 
-2. quality amount 
-3. opening\_price 
-4. closing\_price
-5.  highest\_price
-6.  lowest\_price
+2. quality 
+3. amount 
+4. opening\_price 
+5. closing\_price
+6.  highest\_price
+7.  lowest\_price
 
 ## Socket
 
