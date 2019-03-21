@@ -233,7 +233,7 @@ The **params** object support the following parameters:
         "amountB": "0xde0b6b3a7640000",
         "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
         "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "marketKey": "",
+        "marketKey": "0x2f424dff26d7f20f088c429075b73a70182d0f5d",
         "split": "0xde0b6b3a7640000",
         "fee": {
           "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
@@ -241,8 +241,8 @@ The **params** object support the following parameters:
           "feeAmountS": "0x0",
           "feeAmountB": "0x0",
           "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-          "waiveFeePercentage": "0x0",
-          "walletSplitPercentage": "0x28"
+          "waiveFeePercentage": 0,
+          "walletSplitPercentage": 40
         },
         "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
@@ -748,11 +748,11 @@ About the request **params,** please refer to the JOSN RPC interface named "get\
     "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
     "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
     "amountS": "0xde0b6b3a7640000",
-    "validSince": "0x5c4b0cb3",
+    "validSince": 1548422323,
     "amountB": "0x3635c9adc5dea00000",
     "params": {
-      "validUntil": "0x5c4cacb3",
-      "allOrNone": "0x0",
+      "validUntil": 0,
+      "allOrNone":false,
       "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
     },
     "feeParams": {
@@ -802,7 +802,7 @@ subscriber fills of given address and market
     "amountB": "0xde0b6b3a7640000",
     "tokenS": "0xef68e7c694f40c8202821edf525de3782458639f",
     "tokenB": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "marketKey": "",
+    "marketKey": "0x2f424dff26d7f20f088c429075b73a70182d0f5d",
     "split": "0xde0b6b3a7640000",
     "fee": {
       "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
@@ -810,8 +810,8 @@ subscriber fills of given address and market
       "feeAmountS": "0x0",
       "feeAmountB": "0x0",
       "feeRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-      "waiveFeePercentage": "0x0",
-      "walletSplitPercentage": "0x28"
+      "waiveFeePercentage": 0,
+      "walletSplitPercentage": 40
     },
     "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
     "miner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
