@@ -154,7 +154,7 @@ get the pending nonce of given address
 ```text
 {
   "jsonrpc": "2.0",
-  "method": "get_trades",
+  "method": "get_account_nonce",
   "params": {
     "address": "0xb94065482ad64d4c2b9252358d746b39e820a582"
   },
