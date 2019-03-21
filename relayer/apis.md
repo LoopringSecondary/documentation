@@ -293,12 +293,13 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
 
 > The **params** object is a signed Loopring order. 
 >
-> sig: length of sig is 67 bytes. the first one byte stands for sig type. the second byte stands for the length of sig content\(namely 65\). and others stand for content sig.
+> sig: length of sig is 67 bytes.
 >
-> sigType:
-
-> 1. 0 stands for Ethereum standard sign
-> 2. 1 stands for EIP712 sign
+> 1. the first one byte stands for sig type.
+>    1. 0 stands for Ethereum standard sign algorithm
+>    2. 1 stands for EIP712 sign algorithm
+> 2.  the second byte stands for the length of sig content\(namely 65\). 
+> 3.  others stand for content sig.0 stands for Ethereum standard sign
 
 > Please refer to JSON Schema for more information regarding the order structure and how orders are signed.
 
@@ -391,7 +392,7 @@ Get a list of orders.
     "side": "SELL",
     "sort": "ASC",
     "paging": {
-      "skip": 100,
+      "cursor": 100,
       "size": 20
     }
   }
@@ -407,7 +408,7 @@ Get a list of orders.
 > * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.
 > * **side**: can be "sell", ''buy" and "both".default is "both"
 > * **sort**: "asc" or "desc",default is "asc"
-> * **paging**: default is skip =0, size =20. if skip is set value, size must be set value.
+> * **paging**: default is cursor =0, size =20. if cursor is set value, size must be set value.
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -420,22 +421,21 @@ Get a list of orders.
     "orders": [
       {
         "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-        "version": "0x0",
+        "version": 0,
         "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
         "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
         "amountS": "0xde0b6b3a7640000",
-        "validSince": "0x5c4b0cb3",
+        "validSince": 1548422323,
         "amountB": "0x3635c9adc5dea00000",
         "params": {
-          "validUnit": "0x5c4cacb3",
-          "allOrNone": "0x0",
+          "validUnit": 0,
+          "allOrNone": false,
           "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
         },
         "feeParams": {
           "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
           "amountFee": "0xde0b6b3a7640000"
-        },
-        "signType": "0x0"
+        }
       },
       ...
     ]
