@@ -265,25 +265,26 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
   "id": 1,
   "method": "submit_order",
   "params": {
-    "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
-    "version": "0x0",
-    "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
-    "amountS": "0xde0b6b3a7640000",
-    "validSince": "0x5c4b0cb3",
-    "amountB": "0x3635c9adc5dea00000",
-    "params": {
-      "validUnit": "0x5c4cacb3",
-      "allOrNone": "0x0",
-      "sig": "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
-      "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
-      "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
-    },
-    "feeParams": {
-      "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-      "amountFee": "0xde0b6b3a7640000"
-    },
-    "signType": "0x0"
+    "rawOrder": {
+      "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+      "version": 0,
+      "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+      "amountS": "0xde0b6b3a7640000",
+      "validSince": 1548422323,
+      "amountB": "0x3635c9adc5dea00000",
+      "params": {
+        "validUntil": 0,
+        "allOrNone":true,
+        "sig": "0x0141a3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
+        "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
+        "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
+      },
+      "feeParams": {
+        "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amountFee": "0xde0b6b3a7640000"
+      }
+    }
   }
 }
 ```
@@ -292,6 +293,13 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
 
 > The **params** object is a signed Loopring order. 
 >
+> sig: length of sig is 67 bytes. the first one byte stands for sig type. the second byte stands for the length of sig content\(namely 65\). and others stand for content sig.
+>
+> sigType:
+
+> 1. 0 stands for Ethereum standard sign
+> 2. 1 stands for EIP712 sign
+
 > Please refer to JSON Schema for more information regarding the order structure and how orders are signed.
 
 {% code-tabs %}
@@ -336,12 +344,12 @@ Cancel  order for a given id, or orders for given market or all orders of given 
 
 > The **params** object supports the following parameters:
 >
-> * **id:** the order hash of the order to cancel
-> * **marketPair**: The target market to cancel all orders. the market id must be in uppercase.
-> * **owner**: the address whose orders will be cancelled.
+> * **id:** optional, ****only required when cancel specific order. The order hash of the order to cancel.
+> * **marketPair**: optional, only required when cancel orders of specific market. target market to cancel all orders. 
+> * **owner**: required, only be optional when cancel  specific order, address whose orders will be cancelled.
 > * **time**: required, the current timestamp.
 > * **sig**: required, the signature  using this order's owner private key in EIP 712  way. Please refer to JSON Schema for how this request is signed.
->
+
 > A cancellation request is valid only when the difference between relayer's system time and the timestamp parameter value is not greater than 1 minute.
 
 {% code-tabs %}

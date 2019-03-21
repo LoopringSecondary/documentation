@@ -639,10 +639,24 @@ retrieve market trading history
   },
   "id": 1
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+interval can be  the following types:
+
+1. OHLC\_INTERVAL\_ONE\_MINUTES
+2. OHLC\_INTERVAL\_FIVE\_MINUTES
+3. OHLC\_INTERVAL\_FIFTEEN\_MINUTES
+4. OHLC\_INTERVAL\_THIRTY\_MINUTES
+5. OHLC\_INTERVAL\_ONE\_HOUR
+6. OHLC\_INTERVAL\_TWO\_HOURS
+7. OHLC\_INTERVAL\_FOUR\_HOURS
+8. OHLC\_INTERVAL\_TWELVE\_HOURS
+9. OHLC\_INTERVAL\_ONE\_DAY
+10. OHLC\_INTERVAL\_THREE\_DAYS
+11. OHLC\_INTERVAL\_FIVE\_DAYS
+12. OHLC\_INTERVAL\_ONE\_WEEK
 
 the numbers  stands for  data as the following:
 
