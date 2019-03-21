@@ -275,14 +275,28 @@ Submit a limit price order.  Please refer to the [JSON Schema](https://docs.loop
       "amountB": "0x3635c9adc5dea00000",
       "params": {
         "validUntil": 0,
-        "allOrNone":true,
+        "allOrNone": true,
+        "broker": "0xbe101a20b24c4dc8f8adacdcb4928d9ae2a39f82",
+        "wallet": "0xb94065482ad64d4c2b9252358d746b39e820a582",
         "sig": "0x0141a3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b",
         "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd",
         "dualAuthPrivateKey": "0xc3d695ee4fcb7f14b8cf08a1d588736264ff0d34d6b9b0893a820fe01d1086a6"
       },
       "feeParams": {
         "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-        "amountFee": "0xde0b6b3a7640000"
+        "amountFee": "0xde0b6b3a7640000",
+        "tokenRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "tokenSFeePercentage": 10,
+        "tokenBFeePercentage": 0,
+        "walletSplitPercentage": 40
+      },
+      "erc1400Params": {
+        tokenStandardS: "ERC20",
+        tokenStandardB: "ERC1400",
+        tokenStandardFee: "ERC20",
+        trancheS: "",
+        trancheB: "",
+        transferDataS: ""
       }
     }
   }
@@ -405,7 +419,25 @@ Get a list of orders.
 >
 > * **owner**: required, the owing address of orders.
 > * **marketPair**: optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
-> * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved. Please refer to JSON Schema for a list of order status.
+> * **statuses**:  optional, the list of order statuses to filter. If this value is omitted, orders of all possible status will be retrieved.  order status can be the following values:
+>   * STATUS\_NEW
+>   * STATUS\_PENDING
+>   * STATUS\_EXPIRED
+>   * STATUS\_DUST\_ORDER
+>   * STATUS\_PARTIALLY\_FILLED
+>   * STATUS\_COMPLETELY\_FILLED STATUS\_PENDING\_ACTIVE
+>   * STATUS\_ONCHAIN\_CANCELLED\_BY\_USER
+>   * STATUS\_ONCHAIN\_CANCELLED\_BY\_USER\_TRADING\_PAIR
+>   * STATUS\_SOFT\_CANCELLED\_BY\_USER
+>   * STATUS\_SOFT\_CANCELLED\_BY\_USER\_TRADING\_PAIR
+>   * STATUS\_SOFT\_CANCELLED\_BY\_DISABLED\_MARKET
+>   * STATUS\_SOFT\_CANCELLED\_LOW\_BALANCE
+>   * STATUS\_SOFT\_CANCELLED\_LOW\_FEE\_BALANCE
+>   * STATUS\_SOFT\_CANCELLED\_TOO\_MANY\_ORDERS
+>   * STATUS\_SOFT\_CANCELLED\_DUPLICIATE
+>   * STATUS\_SOFT\_CANCELLED\_TOO\_MANY\_RING\_FAILURES
+>   * STATUS\_INVALID\_DATA
+>   * STATUS\_UNSUPPORTED\_MARKET
 > * **side**: can be "sell", ''buy" and "both".default is "both"
 > * **sort**: "asc" or "desc",default is "asc"
 > * **paging**: default is cursor =0, size =20. if cursor is set value, size must be set value.
@@ -449,7 +481,7 @@ Get a list of orders.
 
 > * **total**: the total number of orders available.
 > * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
->
+
 > The Dual Authoring private keys will not be returned.
 
 
