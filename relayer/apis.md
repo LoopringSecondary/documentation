@@ -460,13 +460,24 @@ Get a list of orders.
         "validSince": 1548422323,
         "amountB": "0x3635c9adc5dea00000",
         "params": {
-          "validUnit": 0,
-          "allOrNone": false,
+          "validUntil": 0,
+          "allOrNone": true,
+          "broker": "0xbe101a20b24c4dc8f8adacdcb4928d9ae2a39f82",
           "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
         },
         "feeParams": {
           "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
-          "amountFee": "0xde0b6b3a7640000"
+          "amountFee": "0xde0b6b3a7640000",
+          "tokenRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+          "tokenSFeePercentage": 10,
+          "tokenBFeePercentage": 0
+        },
+        "state": {
+          "createdAt": 1548422323,
+          "status": "STATUS_PENDING",
+          "outstandingAmountS": "0x3635c9adc5dea00000",
+          "outstandingAmountB": "0xde0b6b3a7640000",
+          "outstandingAmountFee": "0xde0b6b3a7640000"
         }
       },
       ...
