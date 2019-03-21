@@ -196,7 +196,7 @@ get the given owner's fill record according to given query conditions.
     },
     "sort": "ASC",
     "paging": {
-      "skip": 0,
+      "cursor": 0,
       "size": 50
     }
   },
@@ -211,7 +211,7 @@ The **params** object support the following parameters:
 * **owner** :  owner address
 * **marketPair**:   optional, the market from which orders are retrieved. If this value is omitted, orders from all markets will be retrieved.
 * **sort**: "asc" or "desc".
-* **paging**
+* **paging** 
 
 {% code-tabs %}
 {% code-tabs-item title="Response Example" %}
@@ -415,7 +415,7 @@ retrieve rings
   "params": {
     "sort": "ASC",
     "paging": {
-      "skip": 300,
+      "curor": 300,
       "size": 50
     },
     "filter": {
