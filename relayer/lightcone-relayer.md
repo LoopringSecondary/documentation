@@ -668,6 +668,39 @@ the numbers  stands for  data as the following:
 6.  highest\_price
 7.  lowest\_price
 
+### get\_gas\_price
+
+get  gas price that lightcone recommends
+
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "method": "get_gas_price",
+  "params": {
+    
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "gasPrice": "0x2540be400"
+  },
+  "id": 1
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Socket
 
 Lightcone socket support for subscribing activity, orders, fills, order book, metadata, internal ticker,  accounts and news.
