@@ -494,6 +494,74 @@ Get a list of orders.
 > * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
 
 > The Dual Authoring private keys will not be returned.
+>
+> ### Get\_orders\_by\_hash
+>
+> get orders of given order hashes
 
+{% code-tabs %}
+{% code-tabs-item title="Request Example" %}
+```text
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "get_orders_by_hash",
+  "params": {
+    "hashes": [
+      "0xfff19b90ccf6eb051dd71aa29350acbcaedbbfb841e66c202fda5bf7bd084b85",
+      "0xa5ab1875241a946d78ebc67a6750d805c34e0d0420a2b03882d459152e456c42",
+      "0xf8f211b94f558a6168494d1426c9b69a8e2d991b2d36eee14d62bb50d6fce2e0"
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+{% code-tabs %}
+{% code-tabs-item title="Response Example" %}
+```text
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "orders": [
+      {
+        "owner": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+        "version": 0,
+        "tokenS": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "tokenB": "0xef68e7c694f40c8202821edf525de3782458639f",
+        "amountS": "0xde0b6b3a7640000",
+        "validSince": 1548422323,
+        "amountB": "0x3635c9adc5dea00000",
+        "params": {
+          "validUntil": 0,
+          "allOrNone": true,
+          "broker": "0xbe101a20b24c4dc8f8adacdcb4928d9ae2a39f82",
+          "dualAuthAddr": "0x7ebdf3751f63a5fc1742ba98ee34392ce82fa8dd"
+        },
+        "feeParams": {
+          "tokenFee": "0xef68e7c694f40c8202821edf525de3782458639f",
+          "amountFee": "0xde0b6b3a7640000",
+          "tokenRecipient": "0xb94065482ad64d4c2b9252358d746b39e820a582",
+          "tokenSFeePercentage": 10,
+          "tokenBFeePercentage": 0
+        },
+        "state": {
+          "createdAt": 1548422323,
+          "status": "STATUS_PENDING",
+          "outstandingAmountS": "0x3635c9adc5dea00000",
+          "outstandingAmountB": "0xde0b6b3a7640000",
+          "outstandingAmountFee": "0xde0b6b3a7640000"
+        }
+      },
+      ...
+    ]
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Result contains an orders filed, which is a list of orders. The Dual Authoring private keys will not be returned.
 
