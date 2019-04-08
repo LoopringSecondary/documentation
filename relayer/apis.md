@@ -494,9 +494,9 @@ Get a list of orders.
 > * **orders**: the list of orders requested. Orders are sorted by the timestamp of their submission to the relayer.
 
 > The Dual Authoring private keys will not be returned.
->
-> ### Get\_orders\_by\_hash
->
+
+### Get\_orders\_by\_hash
+
 > get orders of given order hashes
 
 {% code-tabs %}
